@@ -79,6 +79,18 @@
     .saved-word { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 12px; align-items: start; border-top: 1px solid var(--line); padding: 13px 0; }
     .toast-region { position: fixed; z-index: 50; right: 18px; bottom: 18px; display: grid; gap: 8px; width: min(360px, calc(100vw - 36px)); }
     .toast-message { border: 1px solid rgba(255,255,255,.12); border-radius: 8px; padding: 12px 14px; background: var(--ink); color: white; box-shadow: 0 8px 28px rgba(16,43,50,.2); font-size: 12px; line-height: 1.5; }
+    .heatmap-scroll { overflow-x: auto; padding-bottom: 6px; }
+    .heatmap-months { display: grid; grid-template-columns: repeat(52, 11px); column-gap: 3px; height: 14px; margin-left: 22px; font-size: 10px; line-height: 14px; color: #9aa49c; }
+    .heatmap-months span { grid-row: 1; white-space: nowrap; }
+    .heatmap-body { display: flex; gap: 6px; }
+    .heatmap-days { display: grid; grid-template-rows: repeat(7, 11px); row-gap: 3px; width: 16px; font-size: 10px; line-height: 11px; color: #9aa49c; text-align: right; }
+    .heatmap { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 11px); grid-auto-columns: 11px; gap: 3px; }
+    .heatmap-cell { width: 11px; height: 11px; border-radius: 2.5px; background: #e9ede7; }
+    .heatmap-level-1 { background: #d7e7da; }
+    .heatmap-level-2 { background: #aecfba; }
+    .heatmap-level-3 { background: #7fb295; }
+    .heatmap-level-4 { background: #1b5a4c; }
+    .heatmap-cell.today { box-shadow: 0 0 0 1.5px var(--brass); }
     @media (max-width: 900px) {
       .desktop-grid { grid-template-columns: 1fr; }
       .side-rail { display: none; }
@@ -148,6 +160,28 @@
             <div class="mb-2 flex justify-between text-[10px] text-muted"><span>今日进度</span><span data-progress-label>0 / 6 篇</span></div>
             <div class="reading-progress" data-today-progress><span></span></div>
           </div>
+        </section>
+
+        <section class="mb-8 rounded-lg border border-[#e2e5de] bg-white px-5 py-5 shadow-[0_8px_30px_rgba(16,43,50,.035)] sm:px-7" id="study-calendar" aria-labelledby="study-calendar-title">
+          <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <div class="eyebrow mb-1">STUDY CALENDAR</div>
+              <h2 class="serif mb-0 text-[22px] font-medium" id="study-calendar-title">学习日历</h2>
+            </div>
+            <div class="flex flex-wrap gap-x-5 gap-y-1 text-[11px] text-muted">
+              <span>连续学习 <strong id="calendar-streak" class="font-semibold text-forest">0</strong> 天</span>
+              <span>累计完成 <strong id="calendar-total" class="font-semibold text-forest">0</strong> 篇</span>
+              <span>本月完成 <strong id="calendar-month" class="font-semibold text-forest">0</strong> 篇</span>
+            </div>
+          </div>
+          <div class="heatmap-scroll">
+            <div class="heatmap-months" id="heatmap-months" aria-hidden="true"></div>
+            <div class="heatmap-body">
+              <div class="heatmap-days" aria-hidden="true"><span>一</span><span></span><span>三</span><span></span><span>五</span><span></span><span>日</span></div>
+              <div class="heatmap" id="heatmap-grid" role="img" aria-label="最近一年的学习打卡热力图"></div>
+            </div>
+          </div>
+          <p class="mb-0 mt-3 text-[10px] text-muted">颜色越深代表当天完成篇数越多，金色描边为今天 · 数据仅保存在本浏览器</p>
         </section>
 
         <article class="rounded-lg border border-[#e2e5de] bg-white px-5 py-6 shadow-[0_8px_30px_rgba(16,43,50,.035)] sm:px-8 sm:py-8" id="article-mitigation">
@@ -467,6 +501,67 @@
       completedToday.forEach((articleId) => {
         const button = document.querySelector(`#article-${articleId} [onclick^="submitReading"]`);
         if (button) button.setAttribute('aria-label', '今日已完成');
+      });
+    }
+
+    const HEATMAP_WEEKS = 52;
+
+    function getCalendarLevel(count) {
+      if (count <= 0) return 0;
+      if (count === 1) return 1;
+      if (count === 2) return 2;
+      if (count <= 4) return 3;
+      return 4;
+    }
+
+    function renderStudyCalendar() {
+      const grid = document.getElementById('heatmap-grid');
+      const months = document.getElementById('heatmap-months');
+      if (!grid || !months) return;
+      const progress = readStorage(STORAGE_KEYS.progress, { lastDate: '', streak: 0, completed: {} });
+      const completed = progress.completed && typeof progress.completed === 'object' ? progress.completed : {};
+      const today = new Date();
+      const todayKey = getLocalDate(today);
+
+      let total = 0;
+      Object.values(completed).forEach((list) => { total += Array.isArray(list) ? list.length : 0; });
+      const monthPrefix = todayKey.slice(0, 7);
+      let monthCount = 0;
+      Object.entries(completed).forEach(([date, list]) => {
+        if (date.startsWith(monthPrefix) && Array.isArray(list)) monthCount += list.length;
+      });
+      document.getElementById('calendar-streak').textContent = String(progress.streak || 0);
+      document.getElementById('calendar-total').textContent = String(total);
+      document.getElementById('calendar-month').textContent = String(monthCount);
+
+      grid.replaceChildren();
+      months.replaceChildren();
+      const start = new Date(today);
+      start.setDate(start.getDate() - (HEATMAP_WEEKS - 1) * 7);
+      start.setDate(start.getDate() - (start.getDay() + 6) % 7); // 对齐到周一
+      const monthLabels = [];
+      let lastMonthLabel = '';
+      const cursor = new Date(start);
+      while (getLocalDate(cursor) <= todayKey) {
+        const key = getLocalDate(cursor);
+        const count = Array.isArray(completed[key]) ? completed[key].length : 0;
+        const cell = createElement('span', `heatmap-cell heatmap-level-${getCalendarLevel(count)}`);
+        cell.title = count ? `${key} · 完成 ${count} 篇` : `${key} · 未学习`;
+        if (key === todayKey) cell.classList.add('today');
+        grid.append(cell);
+        if (cursor.getDate() === 1) {
+          const label = `${cursor.getMonth() + 1}月`;
+          if (label !== lastMonthLabel) {
+            lastMonthLabel = label;
+            monthLabels.push({ column: Math.floor((grid.childElementCount - 1) / 7) + 1, label });
+          }
+        }
+        cursor.setDate(cursor.getDate() + 1);
+      }
+      monthLabels.forEach(({ column, label }) => {
+        const span = createElement('span', '', label);
+        span.style.gridColumn = String(column);
+        months.append(span);
       });
     }
 
@@ -900,6 +995,7 @@
       }
       writeStorage(STORAGE_KEYS.progress, progress);
       updateDateAndProgress();
+      renderStudyCalendar();
       showToast(`《${ARTICLE_TITLES[articleId]}》已标记为今日完成。`);
     }
 
@@ -927,6 +1023,7 @@
       loadSettingsIntoForm();
       renderTopicArticles();
       updateDateAndProgress();
+      renderStudyCalendar();
       renderVocabulary();
       updateBookmarkButtons();
 
