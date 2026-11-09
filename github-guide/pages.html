@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub Pages 免费建站 — GitHub 中文入门指南</title>
+<meta name="description" content="把仓库变成可公开访问的网站，自定义域名、部署方式与常见问题。">
+<meta name="theme-color" content="#306998">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23306998'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='white' font-family='Arial'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">
+    <span class="bars" aria-hidden="true"></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="gh-mark" viewBox="0 0 16 16" width="26" height="26" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.950-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span class="brand-text"><strong>GitHub 中文入门指南</strong><em>零基础 · 全功能</em></span>
+  </a>
+  <div class="topbar-actions">
+    <a class="top-link" href="reference.html">速查表</a>
+    <a class="top-link" href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">源码 ↗</a>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换深色模式" title="切换深色模式">◐</button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="搜索文档…" autocomplete="off" aria-label="搜索文档">
+      <kbd class="search-kbd">/</kbd>
+      <div class="search-results" id="search-results" hidden></div>
+    </div>
+    <nav class="sidebar-nav" aria-label="文档导航">
+<div class="nav-group"><div class="nav-section">开始</div>
+<a class="nav-link" href="index.html">指南首页</a>
+<a class="nav-link" href="intro.html">什么是 Git 与 GitHub</a>
+<a class="nav-link" href="account.html">注册与账号设置</a>
+<a class="nav-link" href="install.html">安装与配置 Git</a>
+</div>
+<div class="nav-group"><div class="nav-section">基础操作</div>
+<a class="nav-link" href="first-repo.html">创建第一个仓库</a>
+<a class="nav-link" href="git-basics.html">Git 基础命令</a>
+<a class="nav-link" href="branch.html">分支与合并</a>
+</div>
+<div class="nav-group"><div class="nav-section">协作开发</div>
+<a class="nav-link" href="pr.html">Pull Request 协作</a>
+<a class="nav-link" href="issues.html">Issue 与 Discussions</a>
+<a class="nav-link" href="fork.html">参与开源项目</a>
+</div>
+<div class="nav-group"><div class="nav-section">平台功能</div>
+<a class="nav-link" href="actions.html">GitHub Actions</a>
+<a class="nav-link active" href="pages.html" aria-current="page">GitHub Pages 建站</a>
+<a class="nav-link" href="features.html">更多平台功能</a>
+</div>
+<div class="nav-group"><div class="nav-section">进阶与参考</div>
+<a class="nav-link" href="security.html">安全与最佳实践</a>
+<a class="nav-link" href="reference.html">速查表与 FAQ</a>
+</div></nav>
+    <div class="sidebar-foot">
+      <p>本站内容整理自 GitHub / Git 官方文档，用于学习交流。</p>
+      <p><a href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">本站在 GitHub 上开源</a></p>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a><span class="sep">›</span><span>平台功能</span><span class="sep">›</span><span class="current">GitHub Pages 建站</span>
+    </div>
+    <article class="doc-body">
+<h1>GitHub Pages 免费建站</h1>
+<p class="lede">GitHub Pages 可以把仓库里的静态文件直接发布成网站。个人主页、项目文档、作品集、博客，都可以托管在这里，免服务器、免备案（使用默认域名时）、手机电脑都能访问。</p>
+
+<h2 id="what">它能做什么，不能做什么</h2>
+<div class="cols-2">
+  <div class="panel">
+    <h4>适合</h4>
+    <ul>
+      <li>HTML / CSS / JS 静态网站</li>
+      <li>Jekyll、Hugo、VitePress 等生成的静态站</li>
+      <li>项目文档、个人简历、作品集</li>
+      <li>前后端分离项目的前端页面</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h4>不适合</h4>
+    <ul>
+      <li>需要数据库或后端服务的应用</li>
+      <li>需要登录态、支付、私密数据</li>
+      <li>大文件下载站（有流量限制）</li>
+      <li>私密内容（Pages 站点是公开的）</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="types">两种站点地址</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>类型</th><th>仓库命名</th><th>访问地址</th></tr></thead>
+  <tbody>
+    <tr><td><strong>用户/组织站点</strong></td><td><code>你的用户名.github.io</code></td><td><code>https://你的用户名.github.io</code></td></tr>
+    <tr><td><strong>项目站点</strong></td><td>任意仓库名</td><td><code>https://你的用户名.github.io/仓库名</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p>一个账号只能有一个用户站点，但可以有无数个项目站点。每个账号的 Pages 站点总大小建议不超过 1 GB，每月流量约 100 GB。</p>
+
+<h2 id="deploy-branch">方式一：从分支发布（最简单）</h2>
+<ol>
+  <li>把网站文件提交到仓库。入口文件必须是仓库某个目录下的 <code>index.html</code>。</li>
+  <li>进入仓库 <strong>Settings</strong> → 左侧 <strong>Pages</strong>。</li>
+  <li>在 <strong>Build and deployment</strong> 的 Source 选择 <strong>Deploy from a branch</strong>。</li>
+  <li>Branch 选择 <code>main</code>，目录选择 <code>/ (root)</code> 或 <code>/docs</code>，点击 <strong>Save</strong>。</li>
+  <li>等 1—2 分钟，页面上方会出现 <strong>Your site is live at ...</strong>，点击链接即可访问。</li>
+</ol>
+
+<pre><code>仓库结构示例（发布目录选 / (root)）
+.
+├── index.html
+├── about.html
+├── assets/
+│   ├── style.css
+│   └── main.js
+└── .nojekyll</code></pre>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>如果发布目录选 <code>/docs</code>，请把网站文件放进 <code>docs/</code> 文件夹，仓库根目录仍可放源码。这在"源码 + 构建产物"同仓库的项目里很常用。</p>
+</div>
+
+<h3 id="nojekyll">关于 .nojekyll</h3>
+<p>默认情况下 Pages 会用 Jekyll 处理一遍文件，凡是以下划线开头的文件或目录（如 <code>_next/</code>）会被忽略。如果你的站点不需要 Jekyll，在发布目录放一个空的 <code>.nojekyll</code> 文件即可关闭处理、原样发布。</p>
+
+<h2 id="actions-deploy">方式二：用 Actions 发布（推荐用于构建型项目）</h2>
+<p>适合 React / Vue / Vite / Hugo 等需要构建的站点。先到 <strong>Settings</strong> → <strong>Pages</strong> → Source 选择 <strong>GitHub Actions</strong>，再添加工作流：</p>
+<pre><code>name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4</code></pre>
+<p>之后每次推送到 <code>main</code>，都会自动构建并发布。运行记录在 Actions 页面的 <code>pages build and deployment</code> 中查看。</p>
+
+<div class="warning">
+  <span class="adm-title">注意</span>
+  <p>项目站点部署在子路径 <code>/仓库名/</code> 下。构建工具需要配置 <code>base</code>（Vite）或 <code>homepage</code>（Create React App），否则 CSS 和 JS 会 404。若不想处理，改用用户站点仓库即可部署在根路径。</p>
+</div>
+
+<h2 id="paths">路径写法：最容易踩的坑</h2>
+<p>假设站点地址是 <code>https://用户名.github.io/my-site/</code>：</p>
+<pre><code>&lt;!-- 错误：会去根域名找资源 --&gt;
+&lt;link rel="stylesheet" href="/assets/style.css"&gt;
+
+&lt;!-- 正确：相对路径 --&gt;
+&lt;link rel="stylesheet" href="assets/style.css"&gt;
+&lt;link rel="stylesheet" href="./assets/style.css"&gt;</code></pre>
+<p>页面之间的链接同理，使用相对文件名（如 <code>about.html</code>）而不是以 <code>/</code> 开头的绝对路径。本指南就是按这个规则编写的，可以直接部署到任意子目录。</p>
+
+<h2 id="custom-domain">绑定自定义域名</h2>
+<ol>
+  <li>在 <strong>Settings</strong> → <strong>Pages</strong> → <strong>Custom domain</strong> 填入域名，例如 <code>docs.example.com</code>，保存后会生成 <code>CNAME</code> 文件。</li>
+  <li>到域名服务商添加解析记录：
+    <ul>
+      <li>子域名（<code>docs.example.com</code>）：添加 <strong>CNAME</strong> 记录指向 <code>你的用户名.github.io</code>。</li>
+      <li>根域名（<code>example.com</code>）：添加 4 条 <strong>A 记录</strong>，指向 <code>185.199.108.153</code>、<code>185.199.109.153</code>、<code>185.199.110.153</code>、<code>185.199.111.153</code>；或使用 ALIAS/ANAME。</li>
+    </ul>
+  </li>
+  <li>等 DNS 生效（几分钟到 24 小时），回到 Pages 设置勾选 <strong>Enforce HTTPS</strong>。</li>
+</ol>
+<p>自定义域名使用 HTTPS 需要证书签发，通常几分钟内完成。国内域名使用自有域名访问时，请遵守当地关于网站备案的规定。</p>
+
+<h2 id="trouble">常见问题排查</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>现象</th><th>原因与处理</th></tr></thead>
+  <tbody>
+    <tr><td>访问返回 404</td><td>没选对发布目录、入口不是 <code>index.html</code>、或构建失败。先看 Actions / Pages 页面的部署状态。</td></tr>
+    <tr><td>页面能开但样式丢失</td><td>资源用了以 <code>/</code> 开头的绝对路径，改成相对路径。</td></tr>
+    <tr><td>改完代码网站没变</td><td>等待 1—2 分钟；强制刷新（Ctrl/Cmd + Shift + R）；确认推送的是发布分支。</td></tr>
+    <tr><td>构建失败并收到邮件</td><td>查看 Actions 日志，常见是依赖安装失败或 Node 版本不匹配。</td></tr>
+    <tr><td>Enforce HTTPS 灰色不可选</td><td>证书还在签发，等几分钟；确认 DNS 已正确指向。</td></tr>
+    <tr><td>下划线开头的目录 404</td><td>添加空的 <code>.nojekyll</code> 文件。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="limits">使用限制（官方说明摘要）</h2>
+<ul>
+  <li>站点建议不超过 1 GB，每月流量建议不超过 100 GB。</li>
+  <li>每小时最多构建 10 次。</li>
+  <li>仅用于静态托管，不允许作为在线商城、敏感交易等用途。</li>
+  <li>私有仓库发布 Pages 需要付费方案；公开仓库免费。</li>
+</ul>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>本站就是一套纯静态站点：克隆仓库后开启 Pages 即可得到一模一样的效果。实践中遇到问题，可以回到 <a href="reference.html#errors">常见报错</a> 或在本站仓库提 Issue。</p>
+</div>
+
+    </article>
+    <nav class="pager" aria-label="翻页">
+<a class="pager-item prev" href="actions.html"><span class="pager-dir">← 上一页</span><span class="pager-title">GitHub Actions 自动化</span></a>
+<a class="pager-item next" href="features.html"><span class="pager-dir">下一页 →</span><span class="pager-title">更多平台功能一览</span></a>
+</nav>
+    <footer class="site-foot">
+      <p>GitHub 中文入门指南 · 使用 <a href="pages.html">GitHub Pages</a> 托管 · 内容以官方文档为准</p>
+      <p class="muted">Git 与 GitHub 是各自所有者的商标。本指南为学习用途的中文整理。</p>
+    </footer>
+  </main>
+
+  <nav class="toc" aria-label="本页目录">
+<div class="toc-title">本页目录</div>
+<ul>
+<li><a href="#what">它能做什么，不能做什么</a></li>
+<li><a href="#types">两种站点地址</a></li>
+<li><a href="#deploy-branch">方式一：从分支发布（最简单）</a></li>
+<ul class="toc-sub">
+<li><a href="#nojekyll">关于 .nojekyll</a></li>
+</ul>
+<li><a href="#actions-deploy">方式二：用 Actions 发布（推荐用于构建型项目）</a></li>
+<li><a href="#paths">路径写法：最容易踩的坑</a></li>
+<li><a href="#custom-domain">绑定自定义域名</a></li>
+<li><a href="#trouble">常见问题排查</a></li>
+<li><a href="#limits">使用限制（官方说明摘要）</a></li>
+</ul>
+</nav>
+</div>
+<script src="assets/main.js"></script>
+</body>
+</html>

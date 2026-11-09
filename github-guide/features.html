@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>更多平台功能一览 — GitHub 中文入门指南</title>
+<meta name="description" content="Releases、Packages、Gist、Wiki、Projects、Copilot、Codespaces、GitHub Mobile 等。">
+<meta name="theme-color" content="#306998">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23306998'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='white' font-family='Arial'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">
+    <span class="bars" aria-hidden="true"></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="gh-mark" viewBox="0 0 16 16" width="26" height="26" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.950-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span class="brand-text"><strong>GitHub 中文入门指南</strong><em>零基础 · 全功能</em></span>
+  </a>
+  <div class="topbar-actions">
+    <a class="top-link" href="reference.html">速查表</a>
+    <a class="top-link" href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">源码 ↗</a>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换深色模式" title="切换深色模式">◐</button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="搜索文档…" autocomplete="off" aria-label="搜索文档">
+      <kbd class="search-kbd">/</kbd>
+      <div class="search-results" id="search-results" hidden></div>
+    </div>
+    <nav class="sidebar-nav" aria-label="文档导航">
+<div class="nav-group"><div class="nav-section">开始</div>
+<a class="nav-link" href="index.html">指南首页</a>
+<a class="nav-link" href="intro.html">什么是 Git 与 GitHub</a>
+<a class="nav-link" href="account.html">注册与账号设置</a>
+<a class="nav-link" href="install.html">安装与配置 Git</a>
+</div>
+<div class="nav-group"><div class="nav-section">基础操作</div>
+<a class="nav-link" href="first-repo.html">创建第一个仓库</a>
+<a class="nav-link" href="git-basics.html">Git 基础命令</a>
+<a class="nav-link" href="branch.html">分支与合并</a>
+</div>
+<div class="nav-group"><div class="nav-section">协作开发</div>
+<a class="nav-link" href="pr.html">Pull Request 协作</a>
+<a class="nav-link" href="issues.html">Issue 与 Discussions</a>
+<a class="nav-link" href="fork.html">参与开源项目</a>
+</div>
+<div class="nav-group"><div class="nav-section">平台功能</div>
+<a class="nav-link" href="actions.html">GitHub Actions</a>
+<a class="nav-link" href="pages.html">GitHub Pages 建站</a>
+<a class="nav-link active" href="features.html" aria-current="page">更多平台功能</a>
+</div>
+<div class="nav-group"><div class="nav-section">进阶与参考</div>
+<a class="nav-link" href="security.html">安全与最佳实践</a>
+<a class="nav-link" href="reference.html">速查表与 FAQ</a>
+</div></nav>
+    <div class="sidebar-foot">
+      <p>本站内容整理自 GitHub / Git 官方文档，用于学习交流。</p>
+      <p><a href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">本站在 GitHub 上开源</a></p>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a><span class="sep">›</span><span>平台功能</span><span class="sep">›</span><span class="current">更多平台功能</span>
+    </div>
+    <article class="doc-body">
+<h1>更多平台功能一览</h1>
+<p class="lede">除了仓库、Issue、PR、Actions、Pages 这五个核心功能，GitHub 还有一整套周边能力。这一篇按用途分组介绍，方便你按需深入。</p>
+
+<h2 id="releases">发布版本：Releases 与 Tag</h2>
+<p><strong>Tag（标签）</strong>是给某次提交起的固定名字，例如 <code>v1.0.0</code>。<strong>Release（发布）</strong>则是在 Tag 之上加了一层"对外发布说明页"，可以附带编译好的安装包。</p>
+<ol>
+  <li>仓库右侧 <strong>Releases</strong> → <strong>Create a new release</strong>。</li>
+  <li>新建或选择已有 Tag，填写标题与发布说明。</li>
+  <li>把构建产物（zip、exe、dmg 等）拖到附件区。</li>
+  <li>可以标记为 <strong>pre-release</strong>（预发布）或 <strong>latest</strong>（最新稳定版）。</li>
+</ol>
+<pre><code># 命令行打标签并推送
+git tag -a v1.0.0 -m "首个正式版本"
+git push origin v1.0.0
+
+# 用 gh 直接创建发布并上传文件
+gh release create v1.0.0 ./dist/app.zip --generate-notes</code></pre>
+
+<h2 id="packages">包托管：GitHub Packages</h2>
+<p>可以把依赖包直接发布到 GitHub，与仓库权限打通。支持 npm、Maven、Gradle、NuGet、RubyGems 和容器镜像（<code>ghcr.io</code>）。</p>
+<pre><code># 以容器镜像为例
+echo $CR_PAT | docker login ghcr.io -u 你的用户名 --password-stdin
+docker tag my-app ghcr.io/你的用户名/my-app:1.0.0
+docker push ghcr.io/你的用户名/my-app:1.0.0</code></pre>
+<p>公开仓库的包默认公开，私有仓库的包继承仓库权限。发布流程通常写在 Actions 里，随 Tag 自动执行。</p>
+
+<h2 id="gist">代码片段：Gist</h2>
+<p>Gist 是轻量级的单文件（或多文件）分享工具，自带版本历史、语法高亮和评论区，适合分享配置、脚本、笔记。</p>
+<ul>
+  <li>访问 <a href="https://gist.github.com" target="_blank" rel="noopener">gist.github.com</a> 新建，可设置文件名与描述。</li>
+  <li><strong>Secret gist</strong> 不会出现在列表和搜索中，但<strong>拿到链接的人都能看</strong>，不要放密钥。</li>
+  <li>每个 Gist 都是一个可克隆的 Git 仓库，也可以嵌入网页：<code>&lt;script src="https://gist.github.com/用户/编号.js"&gt;&lt;/script&gt;</code>。</li>
+</ul>
+
+<h2 id="wiki">项目文档：Wiki</h2>
+<p>仓库自带的文档系统，适合写长篇使用手册、设计文档。在仓库 <strong>Wiki</strong> 标签页创建首页即可启用，支持 Markdown、侧边栏导航和独立的历史记录。Wiki 也可以克隆到本地编辑：</p>
+<pre><code>git clone https://github.com/用户名/仓库名.wiki.git</code></pre>
+<p>如果文档需要严格的评审流程，更推荐直接放在仓库的 <code>docs/</code> 目录里，这样能走 PR 流程。</p>
+
+<h2 id="projects">项目管理：Projects</h2>
+<p>Projects 是内置的看板/表格工具，可以跨多个仓库汇总 Issue 与 PR。</p>
+<ul>
+  <li><strong>视图</strong>：Table（表格）、Board（看板）、Roadmap（时间线）。</li>
+  <li><strong>自定义字段</strong>：优先级、状态、预估工时、迭代周期。</li>
+  <li><strong>自动化</strong>：Issue 一创建就自动加入项目；状态变化时自动移动卡片。</li>
+  <li><strong>分组与筛选</strong>：按负责人、标签、里程碑切片查看。</li>
+</ul>
+<p>适合个人规划"本周要做什么"，也适合团队做迭代管理。入口在个人主页或组织页面的 <strong>Projects</strong> 标签。</p>
+
+<h2 id="profile">个人主页 README</h2>
+<p>创建一个<strong>与用户名同名</strong>的公开仓库（例如用户名 <code>alice</code>，仓库名也叫 <code>alice</code>），并在根目录放 <code>README.md</code>，这段内容就会显示在你的 GitHub 主页顶部。</p>
+<pre><code>### 你好，我是 Alice 👋
+
+- 🔭 目前在做一个笔记工具
+- 🌱 正在学习 TypeScript 和 Rust
+- 📫 联系我：alice@example.com
+
+![GitHub 统计](https://github-readme-stats.vercel.app/api?username=alice&amp;show_icons=true)</code></pre>
+<p>另外在主页可以 <strong>Pin</strong> 最多 6 个仓库作为代表作，并维护 Bio、社交链接和状态（Status）。</p>
+
+<h2 id="mobile">GitHub Mobile 与 Desktop</h2>
+<ul>
+  <li><strong>GitHub Mobile</strong>（iOS / Android）：随时查看通知、审阅 PR、回复 Issue、合并分支，适合碎片时间处理协作事项。</li>
+  <li><strong>GitHub Desktop</strong>（Windows / macOS）：图形化 Git 客户端，可视化查看改动、提交、分支与冲突，适合不想背命令的新手。</li>
+</ul>
+
+<h2 id="cli">GitHub CLI（gh）</h2>
+<p>官方命令行工具，把网页操作搬到终端，适合脚本化和高频操作。</p>
+<pre><code>gh auth login                       # 登录并配置凭据
+gh repo create 名称 --public --clone  # 新建仓库并克隆
+gh issue list --label bug           # 列出 Bug
+gh pr create --fill                 # 用提交信息创建 PR
+gh pr checkout 123                  # 检出某个 PR 的分支
+gh run list                         # 查看 Actions 运行
+gh run view --log-failed            # 只看失败步骤的日志</code></pre>
+
+<h2 id="codespaces">Codespaces：云端开发环境</h2>
+<p>在浏览器里打开一个配好环境的 VS Code，无需在本地安装任何依赖。适合换设备继续开发、给开源项目做临时贡献、教学演示。</p>
+<ul>
+  <li>仓库页面 <strong>Code</strong> → <strong>Codespaces</strong> → 新建，几十秒即可进入。</li>
+  <li>用 <code>.devcontainer/devcontainer.json</code> 固化环境（Node 版本、扩展、端口）。</li>
+  <li>个人账号每月有免费核心小时额度，超出后按量计费，闲置会自动停止。</li>
+</ul>
+
+<h2 id="copilot">Copilot：AI 编程助手</h2>
+<p>GitHub 的 AI 助手，提供代码补全、对话式问答、代码解释与重构建议，可在编辑器、网页和 CLI 中使用。</p>
+<ul>
+  <li><strong>补全</strong>：写注释或函数名时给出整段建议，Tab 接受。</li>
+  <li><strong>Chat</strong>：用自然语言询问代码、生成测试、排查报错。</li>
+  <li><strong>代码评审</strong>：可在 PR 中请求 AI 给出评审意见。</li>
+  <li>学生、教师可通过 GitHub Education 免费使用；免费版每月有一定额度。</li>
+</ul>
+<div class="warning">
+  <span class="adm-title">注意</span>
+  <p>AI 生成的代码需要你自行理解并验证，尤其是许可证与安全性。不要把公司密钥、用户数据贴进对话。</p>
+</div>
+
+<h2 id="security-features">安全相关功能</h2>
+<ul>
+  <li><strong>Dependabot alerts</strong>：依赖出现已知漏洞时提醒你。</li>
+  <li><strong>Dependabot updates</strong>：自动提交升级依赖的 PR。</li>
+  <li><strong>Code scanning</strong>：用 CodeQL 等工具扫描代码中的安全问题，可在 PR 中拦截。</li>
+  <li><strong>Secret scanning</strong>：检测仓库中是否误提交了令牌、密钥；公开仓库免费，支持推送前拦截（Push protection）。</li>
+  <li><strong>Private vulnerability reporting</strong>：让安全研究者私下向你报告漏洞。</li>
+  <li><strong>Security advisories</strong>：公开披露并修复已知漏洞的正式渠道。</li>
+</ul>
+<p>详细配置见<a href="security.html">安全与最佳实践</a>。</p>
+
+<h2 id="org">组织、团队与权限</h2>
+<p><strong>Organization（组织）</strong>是多人共管仓库的容器，可以创建 <strong>Teams</strong>（团队）并给团队而不是个人授权：</p>
+<ul>
+  <li>仓库角色：Read / Triage / Write / Maintain / Admin。</li>
+  <li>组织角色：Owner / Member / Billing manager / Security manager。</li>
+  <li>支持 SAML 单点登录、审计日志、IP 白名单（付费方案）。</li>
+</ul>
+<p>个人项目不需要组织；一旦多人协作、需要区分权限时再创建。</p>
+
+<h2 id="notifications">通知管理</h2>
+<p>通知过多是新手放弃 GitHub 的主要原因之一。<strong>Settings</strong> → <strong>Notifications</strong> 建议：</p>
+<ul>
+  <li>只订阅 <strong>Participating, @mentions, and team mentions</strong>，而不是全部 Watching。</li>
+  <li>对不关心的仓库取消 Watch（选择 Ignore）。</li>
+  <li>用 <a href="https://github.com/notifications" target="_blank" rel="noopener">github.com/notifications</a> 的过滤器按原因批量处理。</li>
+</ul>
+
+<h2 id="insights">仓库洞察 Insights</h2>
+<p>仓库的 <strong>Insights</strong> 标签可以查看：</p>
+<ul>
+  <li><strong>Traffic</strong>：访问量、克隆量、热门内容（需写权限）。</li>
+  <li><strong>Contributors</strong>：提交趋势与贡献者分布。</li>
+  <li><strong>Community Standards</strong>：README、许可证、贡献指南、行为准则的完整度检查。</li>
+  <li><strong>Dependency graph</strong>：依赖关系与漏洞来源。</li>
+</ul>
+
+<h2 id="learn">官方学习资源</h2>
+<ul>
+  <li><a href="https://docs.github.com/zh" target="_blank" rel="noopener">GitHub 官方中文文档</a>：最权威的功能说明。</li>
+  <li><a href="https://skills.github.com" target="_blank" rel="noopener">GitHub Skills</a>：交互式实战课程，直接在仓库里练习。</li>
+  <li><a href="https://github.com/github/docs" target="_blank" rel="noopener">github/docs</a>：官方文档仓库，可以提 Issue 或 PR 纠错。</li>
+  <li><strong>GitHub Education</strong>：学生与教师可申请 Copilot 等免费权益。</li>
+</ul>
+
+    </article>
+    <nav class="pager" aria-label="翻页">
+<a class="pager-item prev" href="pages.html"><span class="pager-dir">← 上一页</span><span class="pager-title">GitHub Pages 免费建站</span></a>
+<a class="pager-item next" href="security.html"><span class="pager-dir">下一页 →</span><span class="pager-title">安全与最佳实践</span></a>
+</nav>
+    <footer class="site-foot">
+      <p>GitHub 中文入门指南 · 使用 <a href="pages.html">GitHub Pages</a> 托管 · 内容以官方文档为准</p>
+      <p class="muted">Git 与 GitHub 是各自所有者的商标。本指南为学习用途的中文整理。</p>
+    </footer>
+  </main>
+
+  <nav class="toc" aria-label="本页目录">
+<div class="toc-title">本页目录</div>
+<ul>
+<li><a href="#releases">发布版本：Releases 与 Tag</a></li>
+<li><a href="#packages">包托管：GitHub Packages</a></li>
+<li><a href="#gist">代码片段：Gist</a></li>
+<li><a href="#wiki">项目文档：Wiki</a></li>
+<li><a href="#projects">项目管理：Projects</a></li>
+<li><a href="#profile">个人主页 README</a></li>
+<li><a href="#mobile">GitHub Mobile 与 Desktop</a></li>
+<li><a href="#cli">GitHub CLI（gh）</a></li>
+<li><a href="#codespaces">Codespaces：云端开发环境</a></li>
+<li><a href="#copilot">Copilot：AI 编程助手</a></li>
+<li><a href="#security-features">安全相关功能</a></li>
+<li><a href="#org">组织、团队与权限</a></li>
+<li><a href="#notifications">通知管理</a></li>
+<li><a href="#insights">仓库洞察 Insights</a></li>
+<li><a href="#learn">官方学习资源</a></li>
+</ul>
+</nav>
+</div>
+<script src="assets/main.js"></script>
+</body>
+</html>

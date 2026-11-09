@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Issue 与 Discussions — GitHub 中文入门指南</title>
+<meta name="description" content="用 Issue 记录任务与 Bug，用标签、里程碑和 Projects 管理进度。">
+<meta name="theme-color" content="#306998">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23306998'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='white' font-family='Arial'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">
+    <span class="bars" aria-hidden="true"></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="gh-mark" viewBox="0 0 16 16" width="26" height="26" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.950-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span class="brand-text"><strong>GitHub 中文入门指南</strong><em>零基础 · 全功能</em></span>
+  </a>
+  <div class="topbar-actions">
+    <a class="top-link" href="reference.html">速查表</a>
+    <a class="top-link" href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">源码 ↗</a>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换深色模式" title="切换深色模式">◐</button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="搜索文档…" autocomplete="off" aria-label="搜索文档">
+      <kbd class="search-kbd">/</kbd>
+      <div class="search-results" id="search-results" hidden></div>
+    </div>
+    <nav class="sidebar-nav" aria-label="文档导航">
+<div class="nav-group"><div class="nav-section">开始</div>
+<a class="nav-link" href="index.html">指南首页</a>
+<a class="nav-link" href="intro.html">什么是 Git 与 GitHub</a>
+<a class="nav-link" href="account.html">注册与账号设置</a>
+<a class="nav-link" href="install.html">安装与配置 Git</a>
+</div>
+<div class="nav-group"><div class="nav-section">基础操作</div>
+<a class="nav-link" href="first-repo.html">创建第一个仓库</a>
+<a class="nav-link" href="git-basics.html">Git 基础命令</a>
+<a class="nav-link" href="branch.html">分支与合并</a>
+</div>
+<div class="nav-group"><div class="nav-section">协作开发</div>
+<a class="nav-link" href="pr.html">Pull Request 协作</a>
+<a class="nav-link active" href="issues.html" aria-current="page">Issue 与 Discussions</a>
+<a class="nav-link" href="fork.html">参与开源项目</a>
+</div>
+<div class="nav-group"><div class="nav-section">平台功能</div>
+<a class="nav-link" href="actions.html">GitHub Actions</a>
+<a class="nav-link" href="pages.html">GitHub Pages 建站</a>
+<a class="nav-link" href="features.html">更多平台功能</a>
+</div>
+<div class="nav-group"><div class="nav-section">进阶与参考</div>
+<a class="nav-link" href="security.html">安全与最佳实践</a>
+<a class="nav-link" href="reference.html">速查表与 FAQ</a>
+</div></nav>
+    <div class="sidebar-foot">
+      <p>本站内容整理自 GitHub / Git 官方文档，用于学习交流。</p>
+      <p><a href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">本站在 GitHub 上开源</a></p>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a><span class="sep">›</span><span>协作开发</span><span class="sep">›</span><span class="current">Issue 与 Discussions</span>
+    </div>
+    <article class="doc-body">
+<h1>Issue 与 Discussions</h1>
+<p class="lede">Issue 是 GitHub 的"任务与问题跟踪器"。它不只用来报 Bug——需求、待办、讨论、文档勘误，都可以是一条 Issue。</p>
+
+<h2 id="what">Issue 能做什么</h2>
+<ul>
+  <li>记录 Bug，附带复现步骤与环境信息。</li>
+  <li>提出新功能需求，收集其他人的反馈（👍 反应）。</li>
+  <li>拆分开发任务，用勾选框跟踪进度。</li>
+  <li>作为讨论区，沉淀"为什么这样设计"的决策记录。</li>
+</ul>
+
+<h2 id="create">创建一条 Issue</h2>
+<ol>
+  <li>进入仓库，点击 <strong>Issues</strong> 标签页 → <strong>New issue</strong>。</li>
+  <li>填写标题（一句话说清问题）和正文（Markdown）。</li>
+  <li>在右侧栏设置 <strong>Assignees</strong>（负责人）、<strong>Labels</strong>（标签）、<strong>Milestone</strong>（里程碑）、<strong>Projects</strong>（看板）。</li>
+  <li>点击 <strong>Create</strong> 提交。也可以用 <strong>Create more</strong> 连续录入。</li>
+</ol>
+
+<p>一份好的 Bug 报告通常包含：</p>
+<pre><code>**环境**
+- 浏览器：Chrome 131 / iPhone 15 Safari
+- 系统：Windows 11 / iOS 18
+
+**复现步骤**
+1. 打开首页
+2. 点击右上角菜单
+3. 再次点击空白处
+
+**期望结果**
+菜单关闭。
+
+**实际结果**
+菜单保持打开，必须刷新页面。
+
+**截图 / 日志**
+（附上截图或控制台报错）</code></pre>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>正文支持直接粘贴截图。GitHub 会自动上传图片并生成 Markdown 链接，不需要图床。</p>
+</div>
+
+<h2 id="labels">标签与里程碑</h2>
+<p><strong>Labels（标签）</strong>用于分类。新仓库自带一组默认标签，也可以自定义颜色与名称：</p>
+<ul>
+  <li><code>bug</code>：功能不符合预期。</li>
+  <li><code>enhancement</code>：新功能或改进。</li>
+  <li><code>documentation</code>：文档相关。</li>
+  <li><code>good first issue</code>：适合新手认领，开源项目常用它标记入门任务。</li>
+  <li><code>help wanted</code>：作者希望有人协助。</li>
+  <li><code>question</code>：需要进一步信息。</li>
+</ul>
+<p><strong>Milestones（里程碑）</strong>用于把一批 Issue 归到同一个目标下，例如"v1.0 发布"，页面会自动显示完成百分比与剩余天数。</p>
+
+<h2 id="tasklist">任务清单</h2>
+<pre><code>- [x] 设计接口
+- [x] 完成后端实现
+- [ ] 补前端页面
+- [ ] 编写测试</code></pre>
+<p>勾选后进度会实时保存并把完成度显示在 Issue 列表中，很适合把一个大 Issue 拆成子任务。</p>
+
+<h2 id="link">关联与自动关闭</h2>
+<p>在 Issue、PR 或提交信息里引用编号即可建立双向链接：</p>
+<pre><code># 同一仓库
+修复了 #12 中描述的崩溃问题
+
+# 跨仓库
+参考 owner/repo#45 的实现
+
+# 合并自动关闭
+Closes #12
+Fixes #12
+Resolves #12</code></pre>
+<p>当包含关闭关键词的 PR 被合并，对应 Issue 会自动关闭并注明"由 #PR编号 关闭"。</p>
+
+<h2 id="search">用搜索快速找到 Issue</h2>
+<pre><code>is:open is:issue label:bug
+is:open assignee:@me
+is:closed label:documentation
+author:用户名 is:pr created:&gt;2026-01-01
+no:label is:open</code></pre>
+<p>这些过滤器在仓库的 Issues 页面顶部搜索框、全局搜索里都通用。</p>
+
+<h2 id="templates">Issue 模板</h2>
+<p>开源项目通常会在 <code>.github/ISSUE_TEMPLATE/</code> 下放置模板，让提问者按格式填写，减少来回追问。最简单的方式是在仓库 <strong>Settings</strong> → <strong>Features</strong> → Issues → <strong>Set up templates</strong> 里用界面生成。</p>
+<pre><code>.github/
+├── ISSUE_TEMPLATE/
+│   ├── bug_report.yml        # Bug 表单
+│   ├── feature_request.yml   # 功能建议表单
+│   └── config.yml            # 模板选择页配置（可加外部链接）
+└── PULL_REQUEST_TEMPLATE.md  # PR 模板</code></pre>
+<p>YAML 表单支持下拉框、必填项、自动打标签，比纯 Markdown 模板更规范。</p>
+
+<h2 id="discussions">Discussions：更轻的讨论区</h2>
+<p>Discussions 是仓库内的论坛式讨论区，适合"没有明确结论、需要多人交流"的话题。在仓库 <strong>Settings</strong> → <strong>Features</strong> 中勾选启用。</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>场景</th><th>用 Issue</th><th>用 Discussions</th></tr></thead>
+  <tbody>
+    <tr><td>明确的 Bug 或具体任务</td><td>✓</td><td></td></tr>
+    <tr><td>"怎么做才好？"开放式提问</td><td></td><td>✓（Q&amp;A 分类）</td></tr>
+    <tr><td>使用求助、经验交流</td><td></td><td>✓</td></tr>
+    <tr><td>需要被排期、指派、跟踪进度</td><td>✓</td><td></td></tr>
+    <tr><td>公告、投票、展示作品</td><td></td><td>✓</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Discussions 支持分类（Categories）、问答式"采纳最佳答案"、投票和把 Discussion 转为 Issue。反过来，Issue 也能一键转为 Discussion。</p>
+
+<h2 id="manage">维护 Issue 的小习惯</h2>
+<ul>
+  <li><strong>及时回复</strong>：哪怕是"已收到，本周处理"。</li>
+  <li><strong>合并重复</strong>：把重复 Issue 标记为 <code>duplicate</code> 并链接到原始 Issue。</li>
+  <li><strong>关闭而非堆积</strong>：无法复现的用 <strong>Close as not planned</strong>，附上原因。</li>
+  <li><strong>定期整理</strong>：给长期无人处理的 Issue 打上 <code>stale</code> 标签。</li>
+  <li><strong>用 Projects 看板</strong>：把 Issue 拖入"待办 / 进行中 / 已完成"列，进度一目了然（见<a href="features.html#projects">更多平台功能</a>）。</li>
+</ul>
+
+<h2 id="notify">通知与订阅</h2>
+<p>参与过的 Issue 默认会订阅更新。可以在 Issue 右侧的 <strong>Subscribe / Unsubscribe</strong> 手动切换，或在 <strong>Settings</strong> → <strong>Notifications</strong> 中设置只接收"参与、@提及、被指派"的通知，避免邮件过载。</p>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>Issue 和 PR 是同一个"号码池"，因此 <code>#1</code> 可能是 Issue 也可能是 PR，点进去看标题即可区分。接下来学习如何给别人的项目做贡献：<a href="fork.html">参与开源项目 →</a></p>
+</div>
+
+    </article>
+    <nav class="pager" aria-label="翻页">
+<a class="pager-item prev" href="pr.html"><span class="pager-dir">← 上一页</span><span class="pager-title">Pull Request 协作流程</span></a>
+<a class="pager-item next" href="fork.html"><span class="pager-dir">下一页 →</span><span class="pager-title">参与开源项目：Fork 与同步</span></a>
+</nav>
+    <footer class="site-foot">
+      <p>GitHub 中文入门指南 · 使用 <a href="pages.html">GitHub Pages</a> 托管 · 内容以官方文档为准</p>
+      <p class="muted">Git 与 GitHub 是各自所有者的商标。本指南为学习用途的中文整理。</p>
+    </footer>
+  </main>
+
+  <nav class="toc" aria-label="本页目录">
+<div class="toc-title">本页目录</div>
+<ul>
+<li><a href="#what">Issue 能做什么</a></li>
+<li><a href="#create">创建一条 Issue</a></li>
+<li><a href="#labels">标签与里程碑</a></li>
+<li><a href="#tasklist">任务清单</a></li>
+<li><a href="#link">关联与自动关闭</a></li>
+<li><a href="#search">用搜索快速找到 Issue</a></li>
+<li><a href="#templates">Issue 模板</a></li>
+<li><a href="#discussions">Discussions：更轻的讨论区</a></li>
+<li><a href="#manage">维护 Issue 的小习惯</a></li>
+<li><a href="#notify">通知与订阅</a></li>
+</ul>
+</nav>
+</div>
+<script src="assets/main.js"></script>
+</body>
+</html>

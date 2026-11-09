@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>创建并上传第一个仓库 — GitHub 中文入门指南</title>
+<meta name="description" content="从网页新建仓库，到本地提交代码并推送上去，完整走通第一次。">
+<meta name="theme-color" content="#306998">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23306998'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='white' font-family='Arial'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">
+    <span class="bars" aria-hidden="true"></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="gh-mark" viewBox="0 0 16 16" width="26" height="26" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.950-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span class="brand-text"><strong>GitHub 中文入门指南</strong><em>零基础 · 全功能</em></span>
+  </a>
+  <div class="topbar-actions">
+    <a class="top-link" href="reference.html">速查表</a>
+    <a class="top-link" href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">源码 ↗</a>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换深色模式" title="切换深色模式">◐</button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="搜索文档…" autocomplete="off" aria-label="搜索文档">
+      <kbd class="search-kbd">/</kbd>
+      <div class="search-results" id="search-results" hidden></div>
+    </div>
+    <nav class="sidebar-nav" aria-label="文档导航">
+<div class="nav-group"><div class="nav-section">开始</div>
+<a class="nav-link" href="index.html">指南首页</a>
+<a class="nav-link" href="intro.html">什么是 Git 与 GitHub</a>
+<a class="nav-link" href="account.html">注册与账号设置</a>
+<a class="nav-link" href="install.html">安装与配置 Git</a>
+</div>
+<div class="nav-group"><div class="nav-section">基础操作</div>
+<a class="nav-link active" href="first-repo.html" aria-current="page">创建第一个仓库</a>
+<a class="nav-link" href="git-basics.html">Git 基础命令</a>
+<a class="nav-link" href="branch.html">分支与合并</a>
+</div>
+<div class="nav-group"><div class="nav-section">协作开发</div>
+<a class="nav-link" href="pr.html">Pull Request 协作</a>
+<a class="nav-link" href="issues.html">Issue 与 Discussions</a>
+<a class="nav-link" href="fork.html">参与开源项目</a>
+</div>
+<div class="nav-group"><div class="nav-section">平台功能</div>
+<a class="nav-link" href="actions.html">GitHub Actions</a>
+<a class="nav-link" href="pages.html">GitHub Pages 建站</a>
+<a class="nav-link" href="features.html">更多平台功能</a>
+</div>
+<div class="nav-group"><div class="nav-section">进阶与参考</div>
+<a class="nav-link" href="security.html">安全与最佳实践</a>
+<a class="nav-link" href="reference.html">速查表与 FAQ</a>
+</div></nav>
+    <div class="sidebar-foot">
+      <p>本站内容整理自 GitHub / Git 官方文档，用于学习交流。</p>
+      <p><a href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">本站在 GitHub 上开源</a></p>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a><span class="sep">›</span><span>基础操作</span><span class="sep">›</span><span class="current">创建第一个仓库</span>
+    </div>
+    <article class="doc-body">
+<h1>创建并上传第一个仓库</h1>
+<p class="lede">这一篇会带你走通两条路：完全在网页上完成，和在自己的电脑上用 Git 完成。建议先走网页版建立直观印象，再走本地流程。</p>
+
+<h2 id="create">第一步：在 GitHub 上新建仓库</h2>
+<ol>
+  <li>点击右上角的 <strong>＋</strong> → <strong>New repository</strong>，或直接访问 <a href="https://github.com/new" target="_blank" rel="noopener">github.com/new</a>。</li>
+  <li><strong>Repository name</strong>：仓库名，例如 <code>hello-github</code>。只能用字母、数字、<code>-</code>、<code>_</code>、<code>.</code>。</li>
+  <li><strong>Description</strong>：一句话说明项目用途（可留空）。</li>
+  <li><strong>Visibility</strong>：<code>Public</code> 任何人可见；<code>Private</code> 仅你和被邀请的人可见。练习建议选 Public，因为免费账号的 Pages 只支持公开仓库。</li>
+  <li>可选初始化项：
+    <ul>
+      <li><strong>Add a README file</strong>：生成项目说明文件，强烈建议勾选。</li>
+      <li><strong>Add .gitignore</strong>：选择语言模板，自动忽略不该提交的文件（如 <code>node_modules</code>）。</li>
+      <li><strong>Choose a license</strong>：开源项目建议选 MIT 或 Apache-2.0。</li>
+    </ul>
+  </li>
+  <li>点击 <strong>Create repository</strong>。</li>
+</ol>
+
+<div class="note">
+  <span class="adm-title">说明</span>
+  <p>如果勾选了 README / .gitignore / 许可证，GitHub 会自动生成一个<strong>首次提交</strong>，仓库不再是空的。这会影响下面的本地推送步骤：空仓库可以直接推送，已有提交的仓库必须先 <code>git pull</code> 或 <code>clone</code>。</p>
+</div>
+
+<h2 id="web-workflow">方式一：全程在网页上完成</h2>
+<p>适合不熟悉命令行、或只想快速上传几个文件的情况。</p>
+<ol>
+  <li>在仓库首页点击 <strong>Add file</strong> → <strong>Create new file</strong>，输入文件名（如 <code>notes.md</code>），在编辑区写内容。</li>
+  <li>向下滚动到 <strong>Commit changes</strong>，填写提交说明，例如 <code>docs: 添加第一篇笔记</code>。</li>
+  <li>点击 <strong>Commit changes</strong>，文件就进入了仓库历史。</li>
+</ol>
+<p>上传已有文件则用 <strong>Add file</strong> → <strong>Upload files</strong>，把文件拖进页面即可（单文件不超过 25 MB，单次上传不超过 100 个文件）。</p>
+<p>想修改已有文件：打开文件 → 右上角铅笔图标 → 编辑 → 提交。整个过程不需要安装任何软件。</p>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>在 GitHub 仓库页面按 <kbd>.</kbd>（英文句号）会把仓库切换成完整的网页编辑器（基于 VS Code），可以直接修改多个文件并提交，非常适合临时改文档。</p>
+</div>
+
+<h2 id="local-workflow">方式二：在本地用 Git 提交</h2>
+
+<h3 id="local-a">情况 A：仓库是空的（没有 README）</h3>
+<p>打开终端（Windows 用 Git Bash），进入你想放项目的目录，依次执行：</p>
+<pre><code># 1. 创建项目文件夹并进入
+mkdir hello-github
+cd hello-github
+
+# 2. 初始化本地仓库
+git init
+
+# 3. 创建一个文件
+echo "# Hello GitHub" &gt; README.md
+
+# 4. 把改动放入暂存区
+git add README.md
+
+# 5. 提交到本地仓库
+git commit -m "docs: 添加 README"
+
+# 6. 关联远程仓库（地址从仓库页面 Code 按钮复制）
+git remote add origin https://github.com/你的用户名/hello-github.git
+
+# 7. 确保分支名为 main
+git branch -M main
+
+# 8. 推送并建立跟踪关系
+git push -u origin main</code></pre>
+
+<h3 id="local-b">情况 B：仓库已有 README（推荐）</h3>
+<p>直接克隆到本地，改动后再推送，可以避免历史冲突：</p>
+<pre><code>git clone https://github.com/你的用户名/hello-github.git
+cd hello-github
+
+# 修改文件后
+git add .
+git commit -m "docs: 更新项目说明"
+git push</code></pre>
+
+<div class="warning">
+  <span class="adm-title">注意</span>
+  <p>如果仓库已有提交，而你又在本地 <code>git init</code> 新建仓库后直接 <code>git push</code>，会被拒绝（<code>rejected ... fetch first</code>）。这不是权限问题，而是两段历史没有共同祖先。解决办法见 <a href="reference.html#errors">常见报错</a>，新手更建议直接用 <code>git clone</code>。</p>
+</div>
+
+<h2 id="explain">这几条命令到底做了什么</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>命令</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td><code>git init</code></td><td>在当前目录创建一个隐藏的 <code>.git</code> 文件夹，从此这个目录受 Git 管理。</td></tr>
+    <tr><td><code>git add .</code></td><td>把当前目录所有改动放入暂存区（<code>.</code> 表示全部）。</td></tr>
+    <tr><td><code>git commit -m "说明"</code></td><td>把暂存区内容打包成一次提交，写入本地历史。</td></tr>
+    <tr><td><code>git remote add origin 地址</code></td><td>给远程仓库起个别名 <code>origin</code>，之后用这个名字指代它。</td></tr>
+    <tr><td><code>git branch -M main</code></td><td>把当前分支重命名为 <code>main</code>（Git 旧版本默认是 <code>master</code>）。</td></tr>
+    <tr><td><code>git push -u origin main</code></td><td>把本地 <code>main</code> 分支推送到远程。<code>-u</code> 记住对应关系，之后只需 <code>git push</code>。</td></tr>
+    <tr><td><code>git clone 地址</code></td><td>下载整个仓库（含全部历史）到本地，并自动配置好远程地址。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="readme">写一份像样的 README</h2>
+<p>README 是仓库的"门面"，会直接显示在仓库首页。对初学者来说，一份合格的 README 至少包含四部分：</p>
+<pre><code># 项目名称
+
+一句话说明这个项目解决什么问题。
+
+## 功能
+
+- 功能一
+- 功能二
+
+## 如何运行
+
+1. 克隆仓库：`git clone https://github.com/用户名/仓库名.git`
+2. 打开 `index.html` 即可。
+
+## 许可证
+
+MIT</code></pre>
+<p>Markdown 常见语法：<code>#</code> 标题、<code>**加粗**</code>、<code>-</code> 列表、<code>`代码`</code>、<code>[文字](链接)</code>、<code>![图片说明](图片地址)</code>。GitHub 还支持表格、任务列表（<code>- [ ] 待办</code>）和折叠块。</p>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>在仓库根目录新建 <code>README.md</code> 后，仓库首页会自动展示它。如果你建一个与自己用户名同名的仓库（如 <code>alice/alice</code>），这个 README 会显示在你的<strong>个人主页</strong>上，是最简单的"个人名片"。</p>
+</div>
+
+<h2 id="repo-tour">仓库页面速览</h2>
+<ul>
+  <li><strong>Code</strong>：文件列表、分支切换、提交历史、克隆地址。</li>
+  <li><strong>Issues / Pull requests</strong>：任务与协作入口，默认关闭，可在 Settings 中启用。</li>
+  <li><strong>Actions</strong>：自动化流水线，首次配置后才会出现内容。</li>
+  <li><strong>Projects / Wiki</strong>：项目管理与文档页。</li>
+  <li><strong>Security / Insights</strong>：依赖告警、流量与提交统计。</li>
+  <li><strong>About 区域</strong>：右侧可编辑简介、网站、话题标签（Topics），让项目更容易被搜到。</li>
+</ul>
+
+<h2 id="next">下一步</h2>
+<p>现在你已经有了仓库。接下来系统学习日常命令：<a href="git-basics.html">Git 基础命令 →</a></p>
+
+    </article>
+    <nav class="pager" aria-label="翻页">
+<a class="pager-item prev" href="install.html"><span class="pager-dir">← 上一页</span><span class="pager-title">安装与配置 Git</span></a>
+<a class="pager-item next" href="git-basics.html"><span class="pager-dir">下一页 →</span><span class="pager-title">Git 基础命令</span></a>
+</nav>
+    <footer class="site-foot">
+      <p>GitHub 中文入门指南 · 使用 <a href="pages.html">GitHub Pages</a> 托管 · 内容以官方文档为准</p>
+      <p class="muted">Git 与 GitHub 是各自所有者的商标。本指南为学习用途的中文整理。</p>
+    </footer>
+  </main>
+
+  <nav class="toc" aria-label="本页目录">
+<div class="toc-title">本页目录</div>
+<ul>
+<li><a href="#create">第一步：在 GitHub 上新建仓库</a></li>
+<li><a href="#web-workflow">方式一：全程在网页上完成</a></li>
+<li><a href="#local-workflow">方式二：在本地用 Git 提交</a></li>
+<ul class="toc-sub">
+<li><a href="#local-a">情况 A：仓库是空的（没有 README）</a></li>
+<li><a href="#local-b">情况 B：仓库已有 README（推荐）</a></li>
+</ul>
+<li><a href="#explain">这几条命令到底做了什么</a></li>
+<li><a href="#readme">写一份像样的 README</a></li>
+<li><a href="#repo-tour">仓库页面速览</a></li>
+<li><a href="#next">下一步</a></li>
+</ul>
+</nav>
+</div>
+<script src="assets/main.js"></script>
+</body>
+</html>

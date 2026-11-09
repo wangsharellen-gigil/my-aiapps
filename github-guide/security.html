@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安全与最佳实践 — GitHub 中文入门指南</title>
+<meta name="description" content="双重验证、Token 权限、密钥泄露、Dependabot、许可证，保护账号与仓库。">
+<meta name="theme-color" content="#306998">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23306998'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='white' font-family='Arial'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">
+    <span class="bars" aria-hidden="true"></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="gh-mark" viewBox="0 0 16 16" width="26" height="26" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.950-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span class="brand-text"><strong>GitHub 中文入门指南</strong><em>零基础 · 全功能</em></span>
+  </a>
+  <div class="topbar-actions">
+    <a class="top-link" href="reference.html">速查表</a>
+    <a class="top-link" href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">源码 ↗</a>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换深色模式" title="切换深色模式">◐</button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="搜索文档…" autocomplete="off" aria-label="搜索文档">
+      <kbd class="search-kbd">/</kbd>
+      <div class="search-results" id="search-results" hidden></div>
+    </div>
+    <nav class="sidebar-nav" aria-label="文档导航">
+<div class="nav-group"><div class="nav-section">开始</div>
+<a class="nav-link" href="index.html">指南首页</a>
+<a class="nav-link" href="intro.html">什么是 Git 与 GitHub</a>
+<a class="nav-link" href="account.html">注册与账号设置</a>
+<a class="nav-link" href="install.html">安装与配置 Git</a>
+</div>
+<div class="nav-group"><div class="nav-section">基础操作</div>
+<a class="nav-link" href="first-repo.html">创建第一个仓库</a>
+<a class="nav-link" href="git-basics.html">Git 基础命令</a>
+<a class="nav-link" href="branch.html">分支与合并</a>
+</div>
+<div class="nav-group"><div class="nav-section">协作开发</div>
+<a class="nav-link" href="pr.html">Pull Request 协作</a>
+<a class="nav-link" href="issues.html">Issue 与 Discussions</a>
+<a class="nav-link" href="fork.html">参与开源项目</a>
+</div>
+<div class="nav-group"><div class="nav-section">平台功能</div>
+<a class="nav-link" href="actions.html">GitHub Actions</a>
+<a class="nav-link" href="pages.html">GitHub Pages 建站</a>
+<a class="nav-link" href="features.html">更多平台功能</a>
+</div>
+<div class="nav-group"><div class="nav-section">进阶与参考</div>
+<a class="nav-link active" href="security.html" aria-current="page">安全与最佳实践</a>
+<a class="nav-link" href="reference.html">速查表与 FAQ</a>
+</div></nav>
+    <div class="sidebar-foot">
+      <p>本站内容整理自 GitHub / Git 官方文档，用于学习交流。</p>
+      <p><a href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">本站在 GitHub 上开源</a></p>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a><span class="sep">›</span><span>进阶与参考</span><span class="sep">›</span><span class="current">安全与最佳实践</span>
+    </div>
+    <article class="doc-body">
+<h1>安全与最佳实践</h1>
+<p class="lede">GitHub 账号往往绑定了你的代码、邮箱、甚至公司仓库。花十分钟把下面几件事做对，能避免绝大多数"账号被盗 / 密钥泄露"事故。</p>
+
+<h2 id="account">账号安全</h2>
+<ul>
+  <li><strong>开启双重验证（2FA）</strong>：优先使用验证器 App 或 Passkey，短信验证码容易被拦截。</li>
+  <li><strong>保存恢复码</strong>：离线存放，不要只存在手机相册。</li>
+  <li><strong>使用密码管理器</strong>：为 GitHub 设置独立强密码，不复用。</li>
+  <li><strong>定期查看 Active sessions</strong>：发现陌生设备立即撤销并改密码。</li>
+  <li><strong>警惕钓鱼</strong>：GitHub 不会通过邮件索要密码或验证码；登录前确认域名是 <code>github.com</code>。</li>
+</ul>
+
+<h2 id="tokens">个人访问令牌（PAT）</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>类型</th><th>特点</th><th>建议</th></tr></thead>
+  <tbody>
+    <tr><td>Fine-grained token</td><td>可限定到具体仓库、具体权限，支持过期时间</td><td><strong>优先使用</strong>，只给需要的仓库与读写范围</td></tr>
+    <tr><td>Classic token</td><td>按 scope 授权，一次覆盖账号下所有仓库</td><td>仅在工具不支持细粒度令牌时使用</td></tr>
+    <tr><td>SSH 密钥</td><td>无需过期，长期有效</td><td>长期开发使用，私钥加密码短语</td></tr>
+  </tbody>
+</table>
+</div>
+<ul>
+  <li>令牌<strong>只显示一次</strong>，复制后立即存入密码管理器。</li>
+  <li>设置合理有效期（如 90 天），到期前轮换。</li>
+  <li>不要在 CI 中把令牌写进代码，使用仓库 Secrets。</li>
+  <li>不再使用的令牌立刻删除，不要留"备用"。</li>
+</ul>
+
+<h2 id="secrets">密钥泄露了怎么办</h2>
+<p>这是最常见的安全事故：把 <code>.env</code>、云服务密钥、数据库密码提交进了仓库。请按顺序处理：</p>
+<ol>
+  <li><strong>第一时间作废密钥</strong>：到对应平台（云厂商、数据库、第三方 API）删除或轮换。这是唯一真正有效的止损。</li>
+  <li><strong>评估暴露范围</strong>：仓库是公开的吗？暴露了多久？有没有被 Fork 或缓存？即使删除提交，历史里仍可能被检索到。</li>
+  <li><strong>清理 Git 历史</strong>（可选，作废之后再做）：
+    <pre><code># 使用 git-filter-repo 从全部历史中删除某个文件
+git filter-repo --path .env --invert-paths
+git push --force --all
+git push --force --tags</code></pre>
+  </li>
+  <li><strong>通知相关方</strong>：公司安全团队、协作成员；必要时联系 GitHub Support 清理缓存。</li>
+  <li><strong>加防护</strong>：把文件加入 <code>.gitignore</code>，开启 Secret scanning 的 Push protection。</li>
+</ol>
+
+<div class="important">
+  <span class="adm-title">重要</span>
+  <p>顺序不能反：<strong>先作废，再清理</strong>。只删文件不换密钥，等同于把钥匙从门上拔下来但没换锁。</p>
+</div>
+
+<h2 id="actions-security">Actions 安全</h2>
+<ul>
+  <li>在工作流顶部声明最小权限：<code>permissions: contents: read</code>，需要时再逐项打开。</li>
+  <li>第三方 Action 固定到完整版本号或提交 SHA，不要用 <code>@master</code>。</li>
+  <li>不要把密钥传给来自 Fork 的 PR 工作流。</li>
+  <li>慎用 <code>pull_request_target</code>：它拥有写权限与密钥，若再检出并执行 PR 代码，等于把后门请进门。</li>
+  <li>优先使用 OIDC 获取云厂商短期凭证，避免长期密钥。</li>
+</ul>
+
+<h2 id="repo-security">仓库与协作安全</h2>
+<ul>
+  <li><strong>最小权限</strong>：给协作者 Read 或 Triage 而不是 Admin；用 Teams 管理权限。</li>
+  <li><strong>保护默认分支</strong>：要求 PR、要求通过检查、要求至少一人批准、禁止强制推送。</li>
+  <li><strong>启用 Rulesets</strong>：可按分支、标签、路径设置更细的规则。</li>
+  <li><strong>审查大权限应用</strong>：定期检查 <strong>Settings</strong> → <strong>Applications</strong> 中授权的 OAuth App 与 GitHub App。</li>
+  <li><strong>私有仓库不等于保险箱</strong>：被邀请者、应用、Actions 日志都可能造成外泄。</li>
+</ul>
+
+<h2 id="dependabot">依赖安全：Dependabot</h2>
+<p>在仓库 <strong>Settings</strong> → <strong>Code security</strong> 中开启：</p>
+<ul>
+  <li><strong>Dependabot alerts</strong>：依赖有已知漏洞时通知你。</li>
+  <li><strong>Dependabot security updates</strong>：自动创建修复 PR。</li>
+  <li><strong>Dependabot version updates</strong>：用 <code>.github/dependabot.yml</code> 定期升级：
+    <pre><code>version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5</code></pre>
+  </li>
+  <li><strong>Code scanning</strong>：用 CodeQL 扫描注入、越权等代码缺陷，公开仓库免费。</li>
+  <li><strong>Secret scanning + Push protection</strong>：提交前拦截密钥，公开仓库默认开启。</li>
+</ul>
+
+<h2 id="license">开源许可证怎么选</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>许可证</th><th>允许</th><th>要求</th><th>适合</th></tr></thead>
+  <tbody>
+    <tr><td><strong>MIT</strong></td><td>几乎任何用途</td><td>保留版权声明</td><td>希望被广泛使用的小工具、示例项目</td></tr>
+    <tr><td><strong>Apache-2.0</strong></td><td>商用、修改、专利授权</td><td>保留声明、标注修改</td><td>企业友好、需要专利条款的项目</td></tr>
+    <tr><td><strong>GPL-3.0</strong></td><td>商用、修改</td><td>衍生作品也必须开源</td><td>希望保证下游持续开源</td></tr>
+    <tr><td><strong>BSD-3-Clause</strong></td><td>商用、修改</td><td>保留声明、不得用作者名义背书</td><td>偏学术、宽松的场景</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>没有许可证 = 默认保留所有权利</strong>，别人不能合法复制或修改你的代码。想让人用，就明确加上许可证。新建仓库时可以直接选择模板，GitHub 会自动生成 <code>LICENSE</code> 文件。</p>
+
+<h2 id="privacy">隐私注意事项</h2>
+<ul>
+  <li>公开仓库中的提交邮箱、时区、活动时间都是公开信息，建议开启邮箱隐私保护。</li>
+  <li>不要提交真实用户数据、内部文档、包含内网地址的配置文件。</li>
+  <li>截图前检查是否包含姓名、邮箱、Token、公司内部信息。</li>
+  <li>使用公司设备与账号时，遵守公司关于代码外发的规定。</li>
+</ul>
+
+<h2 id="scams">常见骗局与风险</h2>
+<ul>
+  <li><strong>假招聘</strong>：以"技术测试"为名让你运行陌生仓库的代码。先在隔离环境中审查脚本。</li>
+  <li><strong>依赖投毒</strong>：拼写相似的恶意包（typosquatting），安装前确认包名与来源。</li>
+  <li><strong>假 Star / 刷量服务</strong>：可能导致账号被封禁。</li>
+  <li><strong>"帮我点个 Star"式垃圾 Issue</strong>：不要在其中留下邮箱或个人信息。</li>
+</ul>
+
+<h2 id="checklist">上手指南之外的检查清单</h2>
+<ul>
+  <li>已开启 2FA，并离线保存恢复码。</li>
+  <li>使用 fine-grained token 或 SSH，令牌设置了有效期。</li>
+  <li>公开仓库中没有 <code>.env</code>、密钥、内网地址。</li>
+  <li><code>main</code> 分支已开启保护，禁止强制推送。</li>
+  <li>Dependabot 与 Secret scanning 已开启。</li>
+  <li>为项目添加了明确的许可证。</li>
+</ul>
+
+    </article>
+    <nav class="pager" aria-label="翻页">
+<a class="pager-item prev" href="features.html"><span class="pager-dir">← 上一页</span><span class="pager-title">更多平台功能一览</span></a>
+<a class="pager-item next" href="reference.html"><span class="pager-dir">下一页 →</span><span class="pager-title">速查表、FAQ 与术语表</span></a>
+</nav>
+    <footer class="site-foot">
+      <p>GitHub 中文入门指南 · 使用 <a href="pages.html">GitHub Pages</a> 托管 · 内容以官方文档为准</p>
+      <p class="muted">Git 与 GitHub 是各自所有者的商标。本指南为学习用途的中文整理。</p>
+    </footer>
+  </main>
+
+  <nav class="toc" aria-label="本页目录">
+<div class="toc-title">本页目录</div>
+<ul>
+<li><a href="#account">账号安全</a></li>
+<li><a href="#tokens">个人访问令牌（PAT）</a></li>
+<li><a href="#secrets">密钥泄露了怎么办</a></li>
+<li><a href="#actions-security">Actions 安全</a></li>
+<li><a href="#repo-security">仓库与协作安全</a></li>
+<li><a href="#dependabot">依赖安全：Dependabot</a></li>
+<li><a href="#license">开源许可证怎么选</a></li>
+<li><a href="#privacy">隐私注意事项</a></li>
+<li><a href="#scams">常见骗局与风险</a></li>
+<li><a href="#checklist">上手指南之外的检查清单</a></li>
+</ul>
+</nav>
+</div>
+<script src="assets/main.js"></script>
+</body>
+</html>

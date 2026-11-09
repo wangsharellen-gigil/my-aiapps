@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>分支与合并 — GitHub 中文入门指南</title>
+<meta name="description" content="分支是什么、为什么要用分支，以及创建、切换、合并、解决冲突的完整流程。">
+<meta name="theme-color" content="#306998">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23306998'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='white' font-family='Arial'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">
+    <span class="bars" aria-hidden="true"></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="gh-mark" viewBox="0 0 16 16" width="26" height="26" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.950-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span class="brand-text"><strong>GitHub 中文入门指南</strong><em>零基础 · 全功能</em></span>
+  </a>
+  <div class="topbar-actions">
+    <a class="top-link" href="reference.html">速查表</a>
+    <a class="top-link" href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">源码 ↗</a>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换深色模式" title="切换深色模式">◐</button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="搜索文档…" autocomplete="off" aria-label="搜索文档">
+      <kbd class="search-kbd">/</kbd>
+      <div class="search-results" id="search-results" hidden></div>
+    </div>
+    <nav class="sidebar-nav" aria-label="文档导航">
+<div class="nav-group"><div class="nav-section">开始</div>
+<a class="nav-link" href="index.html">指南首页</a>
+<a class="nav-link" href="intro.html">什么是 Git 与 GitHub</a>
+<a class="nav-link" href="account.html">注册与账号设置</a>
+<a class="nav-link" href="install.html">安装与配置 Git</a>
+</div>
+<div class="nav-group"><div class="nav-section">基础操作</div>
+<a class="nav-link" href="first-repo.html">创建第一个仓库</a>
+<a class="nav-link" href="git-basics.html">Git 基础命令</a>
+<a class="nav-link active" href="branch.html" aria-current="page">分支与合并</a>
+</div>
+<div class="nav-group"><div class="nav-section">协作开发</div>
+<a class="nav-link" href="pr.html">Pull Request 协作</a>
+<a class="nav-link" href="issues.html">Issue 与 Discussions</a>
+<a class="nav-link" href="fork.html">参与开源项目</a>
+</div>
+<div class="nav-group"><div class="nav-section">平台功能</div>
+<a class="nav-link" href="actions.html">GitHub Actions</a>
+<a class="nav-link" href="pages.html">GitHub Pages 建站</a>
+<a class="nav-link" href="features.html">更多平台功能</a>
+</div>
+<div class="nav-group"><div class="nav-section">进阶与参考</div>
+<a class="nav-link" href="security.html">安全与最佳实践</a>
+<a class="nav-link" href="reference.html">速查表与 FAQ</a>
+</div></nav>
+    <div class="sidebar-foot">
+      <p>本站内容整理自 GitHub / Git 官方文档，用于学习交流。</p>
+      <p><a href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">本站在 GitHub 上开源</a></p>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a><span class="sep">›</span><span>基础操作</span><span class="sep">›</span><span class="current">分支与合并</span>
+    </div>
+    <article class="doc-body">
+<h1>分支与合并</h1>
+<p class="lede">分支让多人可以同时改同一个项目而不互相踩脚。理解"分支只是指针"这一点，你会发现它比想象中简单得多。</p>
+
+<h2 id="what-is-branch">分支到底是什么</h2>
+<p>每次提交，Git 都会生成一个内容快照，并记住它的"父提交"。分支本质上就是一个<strong>指向某次提交的可移动指针</strong>。所以创建分支几乎不占空间，切换也只需瞬间。</p>
+<pre><code>A ── B ── C   ← main（主线，指针指向 C）
+           \
+            D ── E   ← feature/login（从 C 分出来，继续往前走）</code></pre>
+<p>默认分支通常叫 <code>main</code>，它代表"当前稳定的、可发布的版本"。新功能在独立分支上开发，完成并评审通过后再合并回 <code>main</code>。</p>
+
+<h2 id="why">为什么要用分支</h2>
+<ul>
+  <li><strong>隔离风险</strong>：新功能写到一半、代码跑不起来，也不会影响 main 上的可用版本。</li>
+  <li><strong>并行协作</strong>：十个人可以同时改十个模块，各自在自己的分支上提交。</li>
+  <li><strong>方便评审</strong>：一个分支对应一个 Pull Request，评审范围清晰。</li>
+  <li><strong>随时放弃</strong>：实验失败，删掉分支即可，main 上什么都没发生。</li>
+</ul>
+
+<h2 id="basic">分支的基本操作</h2>
+<pre><code>git branch                    # 查看本地分支（* 表示当前分支）
+git branch -a                 # 连同远程分支一起查看
+git switch -c feature/login   # 新建并切换到 feature/login
+git switch main               # 切换到 main
+git branch -d feature/login   # 删除已合并的分支
+git branch -D 分支名           # 强制删除未合并的分支（确认不要了再用）
+
+# 旧写法（仍可用）：git checkout -b 分支名 / git checkout 分支名</code></pre>
+
+<p>把新分支推到远程，并让之后的 <code>git push</code> 知道推到哪里：</p>
+<pre><code>git push -u origin feature/login</code></pre>
+<p><code>-u</code> 是 <code>--set-upstream</code> 的缩写，做一次即可。</p>
+
+<h2 id="merge">合并：把分支合回主线</h2>
+<p>先切到目标分支（通常是 main），再合并来源分支：</p>
+<pre><code>git switch main
+git pull                  # 先确保本地 main 是最新的
+git merge feature/login</code></pre>
+
+<h3 id="ff">两种情况</h3>
+<div class="cols-2">
+  <div class="panel">
+    <h4>快进合并（Fast-forward）</h4>
+    <p>main 在分叉后没有新提交，Git 直接把 main 指针往前移动，不产生新提交，历史是一条直线。</p>
+  </div>
+  <div class="panel">
+    <h4>三方合并（3-way merge）</h4>
+    <p>两边都有新提交，Git 会生成一个<strong>合并提交</strong>，把两条历史连接起来。图形上会出现分叉与汇合。</p>
+  </div>
+</div>
+
+<p>如果希望每个功能分支都留下合并记录（便于回退整个功能），可以强制生成合并提交：</p>
+<pre><code>git merge --no-ff feature/login</code></pre>
+
+<h2 id="conflict">解决冲突</h2>
+<p>当两个分支修改了<strong>同一文件的同一片区域</strong>时，Git 无法判断该保留哪一个，就会停下来让你决定。</p>
+<pre><code>$ git merge feature/login
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+<p>打开冲突文件，会看到这样的标记：</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+欢迎使用新版登录页面。
+=======
+欢迎使用全新的登录界面。
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
+<p><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> 到 <code>=======</code> 之间是当前分支（main）的内容，<code>=======</code> 到 <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> 之间是来源分支的内容。</p>
+<p>处理步骤：</p>
+<ol>
+  <li>编辑文件，删掉三行标记，把内容改成你最终想要的样子（可以只保留一边，也可以融合两边）。</li>
+  <li>确认没有遗留的 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> 标记。</li>
+  <li><code>git add 冲突文件</code> 标记为已解决。</li>
+  <li><code>git commit</code> 完成合并（Git 会自动生成合并说明）。</li>
+</ol>
+<p>想放弃这次合并、回到合并前的状态：</p>
+<pre><code>git merge --abort</code></pre>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>VS Code、GitHub Desktop 等工具提供可视化的"采用当前 / 采用传入 / 两者都保留"按钮，处理冲突比手改标记更直观。冲突不是错误，只是需要人来判断的业务决策。</p>
+</div>
+
+<h2 id="rebase">rebase：另一种整合方式</h2>
+<p><code>rebase</code> 会把你分支上的提交"摘下来"，重新接到目标分支的最新提交之后，历史因此变成一条直线：</p>
+<pre><code>git switch feature/login
+git fetch origin
+git rebase origin/main</code></pre>
+<div class="warning">
+  <span class="adm-title">注意</span>
+  <p>不要对<strong>已经推送并被别人使用的分支</strong>执行 rebase，因为它会改写提交编号，别人的本地历史将无法对应。只在自己独占的功能分支上使用。</p>
+</div>
+
+<h2 id="strategy">团队常用的分支策略</h2>
+<ul>
+  <li><strong>功能分支（Feature branch）</strong>：每个需求开一个分支，通过 PR 合回 main。最通用，适合绝大多数团队。</li>
+  <li><strong>主干开发（Trunk-based）</strong>：所有人频繁往 main 提交小改动，配合特性开关。适合自动化测试完善的团队。</li>
+  <li><strong>Git Flow</strong>：长期保留 develop、release、hotfix 等多条分支，流程严谨但较重，适合有固定发版周期的项目。</li>
+</ul>
+<p>个人学习阶段，用"main + 功能分支 + Pull Request"就足够了。</p>
+
+<h2 id="protect">保护主分支</h2>
+<p>GitHub 仓库的 <strong>Settings</strong> → <strong>Branches</strong>（或 Rules → Rulesets）可以为 <code>main</code> 添加保护规则：</p>
+<ul>
+  <li>禁止直接推送，必须通过 Pull Request。</li>
+  <li>合并前必须通过 CI 检查、至少一人评审。</li>
+  <li>禁止强制推送和删除分支。</li>
+</ul>
+<p>这是团队协作的第一道防线，个人项目也建议开启"禁止强制推送"。</p>
+
+<h2 id="practice">动手练习</h2>
+<pre><code># 1. 从 main 创建分支
+git switch main
+git pull
+git switch -c feature/hello
+
+# 2. 改点东西并提交
+echo "hello from a branch" &gt;&gt; README.md
+git add README.md
+git commit -m "docs: 在分支上添加一行"
+
+# 3. 推送分支
+git push -u origin feature/hello
+
+# 4. 回到 main 合并
+git switch main
+git merge feature/hello
+
+# 5. 推送并删除已合并的分支
+git push
+git branch -d feature/hello</code></pre>
+<p>在真实协作中，第 4 步通常不是本地合并，而是到 GitHub 上发起 Pull Request——这就是下一篇的内容。</p>
+
+    </article>
+    <nav class="pager" aria-label="翻页">
+<a class="pager-item prev" href="git-basics.html"><span class="pager-dir">← 上一页</span><span class="pager-title">Git 基础命令</span></a>
+<a class="pager-item next" href="pr.html"><span class="pager-dir">下一页 →</span><span class="pager-title">Pull Request 协作流程</span></a>
+</nav>
+    <footer class="site-foot">
+      <p>GitHub 中文入门指南 · 使用 <a href="pages.html">GitHub Pages</a> 托管 · 内容以官方文档为准</p>
+      <p class="muted">Git 与 GitHub 是各自所有者的商标。本指南为学习用途的中文整理。</p>
+    </footer>
+  </main>
+
+  <nav class="toc" aria-label="本页目录">
+<div class="toc-title">本页目录</div>
+<ul>
+<li><a href="#what-is-branch">分支到底是什么</a></li>
+<li><a href="#why">为什么要用分支</a></li>
+<li><a href="#basic">分支的基本操作</a></li>
+<li><a href="#merge">合并：把分支合回主线</a></li>
+<ul class="toc-sub">
+<li><a href="#ff">两种情况</a></li>
+</ul>
+<li><a href="#conflict">解决冲突</a></li>
+<li><a href="#rebase">rebase：另一种整合方式</a></li>
+<li><a href="#strategy">团队常用的分支策略</a></li>
+<li><a href="#protect">保护主分支</a></li>
+<li><a href="#practice">动手练习</a></li>
+</ul>
+</nav>
+</div>
+<script src="assets/main.js"></script>
+</body>
+</html>

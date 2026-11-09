@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>注册账号与基础设置 — GitHub 中文入门指南</title>
+<meta name="description" content="注册 GitHub 账号、完善个人资料、开启双重验证、认识个人主页。">
+<meta name="theme-color" content="#306998">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23306998'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='white' font-family='Arial'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">
+    <span class="bars" aria-hidden="true"></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="gh-mark" viewBox="0 0 16 16" width="26" height="26" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.950-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span class="brand-text"><strong>GitHub 中文入门指南</strong><em>零基础 · 全功能</em></span>
+  </a>
+  <div class="topbar-actions">
+    <a class="top-link" href="reference.html">速查表</a>
+    <a class="top-link" href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">源码 ↗</a>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换深色模式" title="切换深色模式">◐</button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="搜索文档…" autocomplete="off" aria-label="搜索文档">
+      <kbd class="search-kbd">/</kbd>
+      <div class="search-results" id="search-results" hidden></div>
+    </div>
+    <nav class="sidebar-nav" aria-label="文档导航">
+<div class="nav-group"><div class="nav-section">开始</div>
+<a class="nav-link" href="index.html">指南首页</a>
+<a class="nav-link" href="intro.html">什么是 Git 与 GitHub</a>
+<a class="nav-link active" href="account.html" aria-current="page">注册与账号设置</a>
+<a class="nav-link" href="install.html">安装与配置 Git</a>
+</div>
+<div class="nav-group"><div class="nav-section">基础操作</div>
+<a class="nav-link" href="first-repo.html">创建第一个仓库</a>
+<a class="nav-link" href="git-basics.html">Git 基础命令</a>
+<a class="nav-link" href="branch.html">分支与合并</a>
+</div>
+<div class="nav-group"><div class="nav-section">协作开发</div>
+<a class="nav-link" href="pr.html">Pull Request 协作</a>
+<a class="nav-link" href="issues.html">Issue 与 Discussions</a>
+<a class="nav-link" href="fork.html">参与开源项目</a>
+</div>
+<div class="nav-group"><div class="nav-section">平台功能</div>
+<a class="nav-link" href="actions.html">GitHub Actions</a>
+<a class="nav-link" href="pages.html">GitHub Pages 建站</a>
+<a class="nav-link" href="features.html">更多平台功能</a>
+</div>
+<div class="nav-group"><div class="nav-section">进阶与参考</div>
+<a class="nav-link" href="security.html">安全与最佳实践</a>
+<a class="nav-link" href="reference.html">速查表与 FAQ</a>
+</div></nav>
+    <div class="sidebar-foot">
+      <p>本站内容整理自 GitHub / Git 官方文档，用于学习交流。</p>
+      <p><a href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">本站在 GitHub 上开源</a></p>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a><span class="sep">›</span><span>开始</span><span class="sep">›</span><span class="current">注册与账号设置</span>
+    </div>
+    <article class="doc-body">
+<h1>注册账号与基础设置</h1>
+<p class="lede">有了账号才能创建仓库、提 Issue、参与开源。这一篇带你完成注册、熟悉界面，并把安全设置一次做到位。</p>
+
+<h2 id="signup">注册 GitHub 账号</h2>
+<ol>
+  <li>打开 <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>。</li>
+  <li>填写<strong>邮箱</strong>（建议使用常用邮箱）、<strong>密码</strong>（至少 15 个字符，或至少 8 个字符且包含数字和小写字母）、<strong>用户名</strong>。</li>
+  <li>选择所在地区，并选择是否接收产品邮件（可以取消勾选，不影响使用）。</li>
+  <li>完成"人类验证"小游戏，然后点击 <strong>Create account</strong>。</li>
+  <li>系统会向你的邮箱发送 6 位验证码，填入后账号即创建成功。</li>
+</ol>
+
+<div class="warning">
+  <span class="adm-title">注意</span>
+  <p>用户名会出现在你的主页地址（<code>github.com/你的用户名</code>）、提交记录和所有协作通知里，而且<strong>后续修改会影响旧链接</strong>。建议用"姓名拼音 + 有意义后缀"，避免纯数字或过于随意的昵称，将来求职时也方便展示。</p>
+</div>
+
+<h3 id="username-rules">用户名的规则</h3>
+<ul>
+  <li>只能包含字母、数字和单个连字符 <code>-</code>，不能以连字符开头或结尾。</li>
+  <li>最多 39 个字符，不区分大小写（<code>Alice</code> 与 <code>alice</code> 视为同一个）。</li>
+  <li>已被占用的用户名无法使用；一些保留词（如 <code>admin</code>）也不可选。</li>
+</ul>
+
+<h2 id="account-type">选择账号类型</h2>
+<p>注册时你会被问及账号类型：</p>
+<ul>
+  <li><strong>Personal account（个人账号）</strong>：适合绝大多数人，可以创建无限量公开/私有仓库，也可以被加入组织。</li>
+  <li><strong>Organization（组织）</strong>：用于团队共管仓库、统一计费与权限。个人账号注册后随时可以再创建组织。</li>
+</ul>
+<p>拿不准就选个人账号，之后不影响任何功能。</p>
+
+<h2 id="ui-tour">登录后的界面导览</h2>
+<p>登录后顶部是一条全局导航栏，主要入口如下：</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>入口</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Home</strong> / 左上角 GitHub 标志</td><td>回到个人工作台，查看动态、推荐仓库、最近访问的项目。</td></tr>
+    <tr><td><strong>Search</strong>（或按 <code>/</code>）</td><td>搜索仓库、代码、Issue、用户。</td></tr>
+    <tr><td><strong>Copilot</strong></td><td>AI 编程助手入口（部分地区/账号可用）。</td></tr>
+    <tr><td><strong>＋</strong> 新建按钮</td><td>新建仓库、导入仓库、新建 Gist、新建组织、新建 Codespace。</td></tr>
+    <tr><td><strong>Pull requests / Issues</strong></td><td>集中查看你参与的评审请求与任务。</td></tr>
+    <tr><td>铃铛 <strong>Notifications</strong></td><td>通知中心，可设置已读与订阅规则。</td></tr>
+    <tr><td>头像菜单</td><td>Your profile、Your repositories、Settings（设置）、Sign out（退出登录）。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>按 <kbd>/</kbd> 可以直接聚焦搜索框；在任意仓库页面按 <kbd>t</kbd> 可以进入"文件模糊查找"模式，输入文件名即可跳转，非常适合浏览大项目。</p>
+</div>
+
+<h2 id="profile">完善个人资料</h2>
+<p>头像菜单 → <strong>Settings</strong> → 左侧 <strong>Public profile</strong>，可以设置：</p>
+<ul>
+  <li><strong>头像</strong>：建议使用清晰的正方形照片或图形标识。</li>
+  <li><strong>Name</strong>：展示名称，可以和用户名不同。</li>
+  <li><strong>Bio</strong>：一句话介绍，最多 160 字符，例如"前端工程师 · 正在学习 Rust"。</li>
+  <li><strong>URL / 社交账号 / 公司 / 所在地</strong>：会让个人主页更可信。</li>
+  <li><strong>Pronouns</strong>：可选的人称代词。</li>
+</ul>
+<p>设置完成后，访问 <code>github.com/你的用户名</code> 就是你的公开主页。后续可以在<a href="features.html#profile">「更多平台功能」</a>里用 README 把主页做得更好看。</p>
+
+<h2 id="security">安全设置：这三件事请立刻做</h2>
+
+<h3 id="two-factor">1. 开启双重验证（2FA）</h3>
+<p>GitHub 要求为平台贡献代码的账号启用双重验证。开启后，除密码外还需要一次性验证码，账号被盗的风险大幅降低。</p>
+<ol>
+  <li>进入 <strong>Settings</strong> → <strong>Password and authentication</strong>。</li>
+  <li>点击 <strong>Enable two-factor authentication</strong>。</li>
+  <li>选择 <strong>Authenticator app</strong>，用手机上的验证器（如 Microsoft Authenticator、Google Authenticator、1Password）扫描二维码。</li>
+  <li>输入手机上显示的 6 位数字，确认绑定。</li>
+  <li><strong>下载并离线保存恢复码</strong>（Recovery codes），手机丢失时用它们登录。</li>
+</ol>
+<div class="important">
+  <span class="adm-title">重要</span>
+  <p>恢复码只显示一次。请打印或存入密码管理器，不要截图后随手丢在相册里。丢失手机又没有恢复码，找回账号会非常麻烦。</p>
+</div>
+
+<h3 id="email-privacy">2. 保护邮箱隐私</h3>
+<p>在 <strong>Settings</strong> → <strong>Emails</strong> 中勾选：</p>
+<ul>
+  <li><strong>Keep my email addresses private</strong>：提交记录中显示 <code>12345678+用户名@users.noreply.github.com</code> 而不是真实邮箱。</li>
+  <li><strong>Block command line pushes that expose my email</strong>：防止本地提交时意外泄露邮箱。</li>
+</ul>
+
+<h3 id="sessions">3. 检查登录设备</h3>
+<p>同一个页面下方可以查看 <strong>Active sessions</strong>，发现陌生设备立即撤销，并建议同时修改密码。</p>
+
+<h2 id="plans">免费账号够用吗</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>方案</th><th>适合谁</th><th>关键限制</th></tr></thead>
+  <tbody>
+    <tr><td><strong>GitHub Free</strong></td><td>个人学习、开源项目</td><td>公开仓库 Actions 免费；私有仓库每月有免费额度；Pages 仅支持公开仓库</td></tr>
+    <tr><td><strong>GitHub Pro</strong></td><td>重度个人开发者</td><td>更多私有仓库 Actions 分钟数、代码审查工具</td></tr>
+    <tr><td><strong>GitHub Team</strong></td><td>小型团队</td><td>组织级权限、团队评审、项目管理增强</td></tr>
+    <tr><td><strong>GitHub Enterprise</strong></td><td>企业</td><td>单点登录、审计、合规与企业级支持</td></tr>
+  </tbody>
+</table>
+</div>
+<p>具体价格与额度以 <a href="https://github.com/pricing" target="_blank" rel="noopener">github.com/pricing</a> 为准。学习阶段用免费版完全足够。</p>
+
+<h2 id="next">下一步</h2>
+<p>账号就绪后，回到电脑上安装 Git：<a href="install.html">安装与配置 Git →</a>。如果你只想先用网页版体验，也可以直接跳到 <a href="first-repo.html">创建第一个仓库</a>。</p>
+
+    </article>
+    <nav class="pager" aria-label="翻页">
+<a class="pager-item prev" href="intro.html"><span class="pager-dir">← 上一页</span><span class="pager-title">什么是 Git 与 GitHub</span></a>
+<a class="pager-item next" href="install.html"><span class="pager-dir">下一页 →</span><span class="pager-title">安装与配置 Git</span></a>
+</nav>
+    <footer class="site-foot">
+      <p>GitHub 中文入门指南 · 使用 <a href="pages.html">GitHub Pages</a> 托管 · 内容以官方文档为准</p>
+      <p class="muted">Git 与 GitHub 是各自所有者的商标。本指南为学习用途的中文整理。</p>
+    </footer>
+  </main>
+
+  <nav class="toc" aria-label="本页目录">
+<div class="toc-title">本页目录</div>
+<ul>
+<li><a href="#signup">注册 GitHub 账号</a></li>
+<ul class="toc-sub">
+<li><a href="#username-rules">用户名的规则</a></li>
+</ul>
+<li><a href="#account-type">选择账号类型</a></li>
+<li><a href="#ui-tour">登录后的界面导览</a></li>
+<li><a href="#profile">完善个人资料</a></li>
+<li><a href="#security">安全设置：这三件事请立刻做</a></li>
+<ul class="toc-sub">
+<li><a href="#two-factor">1. 开启双重验证（2FA）</a></li>
+<li><a href="#email-privacy">2. 保护邮箱隐私</a></li>
+<li><a href="#sessions">3. 检查登录设备</a></li>
+</ul>
+<li><a href="#plans">免费账号够用吗</a></li>
+<li><a href="#next">下一步</a></li>
+</ul>
+</nav>
+</div>
+<script src="assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub Actions 自动化 — GitHub 中文入门指南</title>
+<meta name="description" content="用 YAML 编写工作流，实现自动测试、构建、部署，理解 runner、job 与 secrets。">
+<meta name="theme-color" content="#306998">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23306998'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='white' font-family='Arial'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">
+    <span class="bars" aria-hidden="true"></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="gh-mark" viewBox="0 0 16 16" width="26" height="26" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.950-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span class="brand-text"><strong>GitHub 中文入门指南</strong><em>零基础 · 全功能</em></span>
+  </a>
+  <div class="topbar-actions">
+    <a class="top-link" href="reference.html">速查表</a>
+    <a class="top-link" href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">源码 ↗</a>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换深色模式" title="切换深色模式">◐</button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="搜索文档…" autocomplete="off" aria-label="搜索文档">
+      <kbd class="search-kbd">/</kbd>
+      <div class="search-results" id="search-results" hidden></div>
+    </div>
+    <nav class="sidebar-nav" aria-label="文档导航">
+<div class="nav-group"><div class="nav-section">开始</div>
+<a class="nav-link" href="index.html">指南首页</a>
+<a class="nav-link" href="intro.html">什么是 Git 与 GitHub</a>
+<a class="nav-link" href="account.html">注册与账号设置</a>
+<a class="nav-link" href="install.html">安装与配置 Git</a>
+</div>
+<div class="nav-group"><div class="nav-section">基础操作</div>
+<a class="nav-link" href="first-repo.html">创建第一个仓库</a>
+<a class="nav-link" href="git-basics.html">Git 基础命令</a>
+<a class="nav-link" href="branch.html">分支与合并</a>
+</div>
+<div class="nav-group"><div class="nav-section">协作开发</div>
+<a class="nav-link" href="pr.html">Pull Request 协作</a>
+<a class="nav-link" href="issues.html">Issue 与 Discussions</a>
+<a class="nav-link" href="fork.html">参与开源项目</a>
+</div>
+<div class="nav-group"><div class="nav-section">平台功能</div>
+<a class="nav-link active" href="actions.html" aria-current="page">GitHub Actions</a>
+<a class="nav-link" href="pages.html">GitHub Pages 建站</a>
+<a class="nav-link" href="features.html">更多平台功能</a>
+</div>
+<div class="nav-group"><div class="nav-section">进阶与参考</div>
+<a class="nav-link" href="security.html">安全与最佳实践</a>
+<a class="nav-link" href="reference.html">速查表与 FAQ</a>
+</div></nav>
+    <div class="sidebar-foot">
+      <p>本站内容整理自 GitHub / Git 官方文档，用于学习交流。</p>
+      <p><a href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">本站在 GitHub 上开源</a></p>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a><span class="sep">›</span><span>平台功能</span><span class="sep">›</span><span class="current">GitHub Actions</span>
+    </div>
+    <article class="doc-body">
+<h1>GitHub Actions 自动化</h1>
+<p class="lede">Actions 是 GitHub 内置的自动化平台：代码一推送，它就按你写的规则自动跑测试、打包、发版、部署网站。不用买服务器，配置文件就是仓库里的一个 YAML 文件。</p>
+
+<h2 id="concepts">六个核心概念</h2>
+<dl class="term-grid">
+  <dt>Workflow 工作流</dt>
+  <dd>一个自动化流程，对应 <code>.github/workflows/</code> 下的一个 YAML 文件。</dd>
+  <dt>Event 事件</dt>
+  <dd>触发条件，例如 push、pull_request、定时任务、手动点击。</dd>
+  <dt>Job 作业</dt>
+  <dd>工作流里的一个任务单元，默认并行执行，可配置先后依赖。</dd>
+  <dt>Step 步骤</dt>
+  <dd>作业内的具体动作，按顺序执行。要么运行命令（<code>run</code>），要么调用现成的 Action（<code>uses</code>）。</dd>
+  <dt>Action 动作</dt>
+  <dd>可复用的功能模块，例如检出代码、安装 Node、上传构建产物。Marketplace 上有数万个。</dd>
+  <dt>Runner 运行器</dt>
+  <dd>真正执行任务的机器。GitHub 提供 Ubuntu / Windows / macOS 托管机器，也支持自建。</dd>
+</dl>
+
+<h2 id="first">第一个工作流</h2>
+<p>在仓库里新建文件 <code>.github/workflows/ci.yml</code>：</p>
+<pre><code>name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 运行测试
+        run: npm test</code></pre>
+<p>提交并推送后，打开仓库的 <strong>Actions</strong> 标签页，就能看到一次运行记录。点击进去可以展开每个步骤的实时日志。</p>
+
+<div class="note">
+  <span class="adm-title">说明</span>
+  <p><code>npm ci</code> 与 <code>npm install</code> 的区别：<code>ci</code> 严格按 <code>package-lock.json</code> 安装，速度更快、结果可复现，适合 CI 环境。</p>
+</div>
+
+<h2 id="syntax">YAML 关键语法</h2>
+
+<h3 id="on">触发条件 on</h3>
+<pre><code>on:
+  push:
+    branches: [main]
+    paths: ["src/**", "package.json"]   # 只有这些文件变化才触发
+  pull_request:
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: "0 2 * * *"                 # 每天 UTC 02:00（北京时间 10:00）
+  workflow_dispatch:                     # 允许在网页上手动触发
+    inputs:
+      environment:
+        description: "部署环境"
+        default: staging</code></pre>
+
+<h3 id="runs-on">运行环境 runs-on</h3>
+<pre><code>runs-on: ubuntu-latest    # 最常用，速度快、免费额度高
+runs-on: windows-latest
+runs-on: macos-latest</code></pre>
+
+<h3 id="steps">步骤：run 与 uses</h3>
+<pre><code>steps:
+  - uses: actions/checkout@v4          # 使用现成 Action
+  - run: |                             # 执行多条命令
+      echo "当前分支：$GITHUB_REF_NAME"
+      ls -la
+  - name: 使用密钥
+    run: ./deploy.sh
+    env:
+      API_KEY: ${{ secrets.API_KEY }}   # 引用仓库密钥</code></pre>
+
+<h3 id="matrix">矩阵测试：一次跑多种环境</h3>
+<pre><code>jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - run: npm test</code></pre>
+<p>上面会生成 3 × 3 = 9 个并行作业，任一组失败不影响其他组（<code>fail-fast: false</code>）。</p>
+
+<h2 id="secrets">密钥与环境变量</h2>
+<p>在仓库 <strong>Settings</strong> → <strong>Secrets and variables</strong> → <strong>Actions</strong> 中添加：</p>
+<ul>
+  <li><strong>Secrets</strong>：加密存储，日志中自动打码，例如 <code>DEPLOY_TOKEN</code>、<code>NPM_TOKEN</code>。</li>
+  <li><strong>Variables</strong>：明文配置，例如 <code>API_BASE_URL</code>。</li>
+</ul>
+<pre><code>      - run: echo "${{ vars.API_BASE_URL }}"
+      - run: curl -H "Authorization: Bearer ${{ secrets.API_KEY }}" https://api.example.com</code></pre>
+<div class="important">
+  <span class="adm-title">重要</span>
+  <p>不要用 <code>echo</code> 打印密钥、不要把密钥写进 YAML。来自 Fork 的 <code>pull_request</code> 工作流<strong>不会获得密钥</strong>（这是安全设计），需要密钥的操作请用 <code>workflow_run</code> 或由维护者手动触发。</p>
+</div>
+
+<h2 id="permissions">最小权限原则</h2>
+<p>默认的 <code>GITHUB_TOKEN</code> 权限可能过大。建议在工作流顶部显式声明：</p>
+<pre><code>permissions:
+  contents: read
+
+jobs:
+  build:
+    permissions:
+      contents: read
+      pull-requests: write   # 只有需要评论 PR 的作业才开写权限</code></pre>
+
+<h2 id="artifacts">产物、缓存与依赖</h2>
+<pre><code>      # 缓存依赖，加速后续构建
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+      # 上传构建产物，可在运行页面下载
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      # 下载其他作业上传的产物
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/</code></pre>
+
+<h2 id="deploy">常见用途：自动部署 Pages</h2>
+<p>把静态站点推送到 <code>gh-pages</code> 分支或直接用官方 Pages Action，详见<a href="pages.html#actions-deploy">GitHub Pages 建站</a>。核心片段：</p>
+<pre><code>permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+      - id: deployment
+        uses: actions/deploy-pages@v4</code></pre>
+
+<h2 id="advanced">进阶能力一览</h2>
+<ul>
+  <li><strong>作业依赖</strong>：<code>needs: build</code> 让部署等待构建完成。</li>
+  <li><strong>条件执行</strong>：<code>if: github.ref == 'refs/heads/main'</code>。</li>
+  <li><strong>并发控制</strong>：<code>concurrency: { group: pages, cancel-in-progress: true }</code> 避免重复部署。</li>
+  <li><strong>定时任务</strong>：<code>schedule</code> + cron，用于每日构建、数据同步。</li>
+  <li><strong>可复用工作流</strong>：<code>uses: owner/repo/.github/workflows/x.yml@v1</code>。</li>
+  <li><strong>复合 Action</strong>：把重复步骤封装成自己的 Action。</li>
+  <li><strong>自建 Runner</strong>：需要特殊硬件或内网访问时使用。</li>
+  <li><strong>OIDC 免密钥部署</strong>：用短期凭证访问云服务，无需长期密钥。</li>
+</ul>
+
+<h2 id="debug">排查失败</h2>
+<ol>
+  <li>打开失败的运行记录，展开红色步骤查看完整日志。</li>
+  <li>常见原因：依赖版本不对、缺少环境变量、路径大小写不一致（Linux 区分大小写，Windows 不区分）。</li>
+  <li>点击 <strong>Re-run jobs</strong> 重跑；开启 <strong>Debug logging</strong> 可获得更详细日志（需设置 secret <code>ACTIONS_STEP_DEBUG=true</code>）。</li>
+  <li>用 <code>workflow_dispatch</code> 手动触发，缩短调试循环。</li>
+  <li>本地可用 <code>act</code> 工具模拟运行，但不是 100% 一致。</li>
+</ol>
+
+<h2 id="billing">免费额度</h2>
+<ul>
+  <li><strong>公开仓库</strong>：标准托管 Runner 免费，不限分钟数（合理使用范围内）。</li>
+  <li><strong>私有仓库</strong>：免费账号每月 2000 分钟，按操作系统倍率计费（Windows / macOS 消耗更快）。</li>
+  <li>存储产物与包也有额度，超出后按量计费。</li>
+</ul>
+
+<div class="warning">
+  <span class="adm-title">注意</span>
+  <p>不要在工作流里执行来源不明的脚本，也不要给 <code>pull_request_target</code> 工作流检出并运行 PR 中的代码——这是历史上真实发生过的供应链攻击入口。</p>
+</div>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>先去 <a href="https://github.com/marketplace?type=actions" target="_blank" rel="noopener">Actions Marketplace</a> 看看现成的动作，能省掉大量重复配置。下一站：<a href="pages.html">用 GitHub Pages 把仓库变成网站 →</a></p>
+</div>
+
+    </article>
+    <nav class="pager" aria-label="翻页">
+<a class="pager-item prev" href="fork.html"><span class="pager-dir">← 上一页</span><span class="pager-title">参与开源项目：Fork 与同步</span></a>
+<a class="pager-item next" href="pages.html"><span class="pager-dir">下一页 →</span><span class="pager-title">GitHub Pages 免费建站</span></a>
+</nav>
+    <footer class="site-foot">
+      <p>GitHub 中文入门指南 · 使用 <a href="pages.html">GitHub Pages</a> 托管 · 内容以官方文档为准</p>
+      <p class="muted">Git 与 GitHub 是各自所有者的商标。本指南为学习用途的中文整理。</p>
+    </footer>
+  </main>
+
+  <nav class="toc" aria-label="本页目录">
+<div class="toc-title">本页目录</div>
+<ul>
+<li><a href="#concepts">六个核心概念</a></li>
+<li><a href="#first">第一个工作流</a></li>
+<li><a href="#syntax">YAML 关键语法</a></li>
+<ul class="toc-sub">
+<li><a href="#on">触发条件 on</a></li>
+<li><a href="#runs-on">运行环境 runs-on</a></li>
+<li><a href="#steps">步骤：run 与 uses</a></li>
+<li><a href="#matrix">矩阵测试：一次跑多种环境</a></li>
+</ul>
+<li><a href="#secrets">密钥与环境变量</a></li>
+<li><a href="#permissions">最小权限原则</a></li>
+<li><a href="#artifacts">产物、缓存与依赖</a></li>
+<li><a href="#deploy">常见用途：自动部署 Pages</a></li>
+<li><a href="#advanced">进阶能力一览</a></li>
+<li><a href="#debug">排查失败</a></li>
+<li><a href="#billing">免费额度</a></li>
+</ul>
+</nav>
+</div>
+<script src="assets/main.js"></script>
+</body>
+</html>

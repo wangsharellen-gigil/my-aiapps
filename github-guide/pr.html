@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pull Request 协作流程 — GitHub 中文入门指南</title>
+<meta name="description" content="发起 PR、代码评审、请求修改、合并方式，团队协作的核心流程。">
+<meta name="theme-color" content="#306998">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23306998'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='white' font-family='Arial'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">
+    <span class="bars" aria-hidden="true"></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="gh-mark" viewBox="0 0 16 16" width="26" height="26" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.950-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span class="brand-text"><strong>GitHub 中文入门指南</strong><em>零基础 · 全功能</em></span>
+  </a>
+  <div class="topbar-actions">
+    <a class="top-link" href="reference.html">速查表</a>
+    <a class="top-link" href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">源码 ↗</a>
+    <button class="icon-btn theme-btn" id="theme-btn" aria-label="切换深色模式" title="切换深色模式">◐</button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="搜索文档…" autocomplete="off" aria-label="搜索文档">
+      <kbd class="search-kbd">/</kbd>
+      <div class="search-results" id="search-results" hidden></div>
+    </div>
+    <nav class="sidebar-nav" aria-label="文档导航">
+<div class="nav-group"><div class="nav-section">开始</div>
+<a class="nav-link" href="index.html">指南首页</a>
+<a class="nav-link" href="intro.html">什么是 Git 与 GitHub</a>
+<a class="nav-link" href="account.html">注册与账号设置</a>
+<a class="nav-link" href="install.html">安装与配置 Git</a>
+</div>
+<div class="nav-group"><div class="nav-section">基础操作</div>
+<a class="nav-link" href="first-repo.html">创建第一个仓库</a>
+<a class="nav-link" href="git-basics.html">Git 基础命令</a>
+<a class="nav-link" href="branch.html">分支与合并</a>
+</div>
+<div class="nav-group"><div class="nav-section">协作开发</div>
+<a class="nav-link active" href="pr.html" aria-current="page">Pull Request 协作</a>
+<a class="nav-link" href="issues.html">Issue 与 Discussions</a>
+<a class="nav-link" href="fork.html">参与开源项目</a>
+</div>
+<div class="nav-group"><div class="nav-section">平台功能</div>
+<a class="nav-link" href="actions.html">GitHub Actions</a>
+<a class="nav-link" href="pages.html">GitHub Pages 建站</a>
+<a class="nav-link" href="features.html">更多平台功能</a>
+</div>
+<div class="nav-group"><div class="nav-section">进阶与参考</div>
+<a class="nav-link" href="security.html">安全与最佳实践</a>
+<a class="nav-link" href="reference.html">速查表与 FAQ</a>
+</div></nav>
+    <div class="sidebar-foot">
+      <p>本站内容整理自 GitHub / Git 官方文档，用于学习交流。</p>
+      <p><a href="https://github.com/wangsharellen-gigil/my-aiapps/tree/main/github-guide" target="_blank" rel="noopener">本站在 GitHub 上开源</a></p>
+    </div>
+  </aside>
+
+  <main class="content" id="content">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a><span class="sep">›</span><span>协作开发</span><span class="sep">›</span><span class="current">Pull Request 协作</span>
+    </div>
+    <article class="doc-body">
+<h1>Pull Request 协作流程</h1>
+<p class="lede">Pull Request（PR，中文常译为"拉取请求"）是 GitHub 最核心的协作机制：你把自己的分支"申请合并"到目标分支，团队在旁边讨论、评审、跑自动化检查，确认无误后点击合并。</p>
+
+<h2 id="what">Pull Request 是什么</h2>
+<p>注意区分两件事：</p>
+<ul>
+  <li><strong>Git 层面</strong>：分支合并（<code>git merge</code>），纯本地操作。</li>
+  <li><strong>GitHub 层面</strong>：Pull Request，是一个<strong>带讨论区的合并申请</strong>。代码可以在合并前被逐行评论、被自动测试、被要求修改。</li>
+</ul>
+<p>PR 的产物也不只是合并后的代码，还包括一整段可追溯的讨论记录：为什么这么改、评审提了哪些问题、谁批准了。</p>
+
+<h2 id="workflow">完整流程一览</h2>
+<ol class="path">
+  <li><b>从最新 main 创建功能分支</b><span><code>git switch main &amp;&amp; git pull &amp;&amp; git switch -c feature/xxx</code></span></li>
+  <li><b>在分支上提交改动</b><span>小步提交，说明写清楚"做了什么、为什么"。</span></li>
+  <li><b>推送到 GitHub</b><span><code>git push -u origin feature/xxx</code></span></li>
+  <li><b>发起 Pull Request</b><span>网页会提示 Compare &amp; pull request，或访问仓库的 Pull requests 标签页。</span></li>
+  <li><b>写标题与描述</b><span>说明背景、改动点、如何验证，关联相关 Issue。</span></li>
+  <li><b>等待检查与评审</b><span>Actions 自动跑测试；评审人留下评论或要求修改。</span></li>
+  <li><b>根据意见继续提交</b><span>在同一个分支上继续 commit &amp; push，PR 会自动更新。</span></li>
+  <li><b>合并并清理</b><span>点击 Merge，删除远程分支，本地切回 main 并 pull。</span></li>
+</ol>
+
+<h2 id="create">动手发起一个 PR</h2>
+<h3 id="create-cli">用命令行推送</h3>
+<pre><code>git switch main
+git pull
+git switch -c feature/add-about
+
+# 修改文件……
+git add .
+git commit -m "feat: 增加关于页面"
+git push -u origin feature/add-about</code></pre>
+<p>推送后打开仓库主页，通常会看到一条黄色提示条：<strong>Compare &amp; pull request</strong>。点击它即可进入创建页面。</p>
+
+<h3 id="create-web">填写 PR 信息</h3>
+<ul>
+  <li><strong>base</strong>：要合并进的目标分支（通常是 <code>main</code>）。</li>
+  <li><strong>compare</strong>：你的来源分支。</li>
+  <li><strong>标题</strong>：一句话概括，例如 <code>feat: 增加关于页面</code>。</li>
+  <li><strong>描述</strong>：建议包含"改了什么 / 为什么改 / 怎么验证 / 截图"。</li>
+  <li><strong>Reviewers</strong>：指定评审人。</li>
+  <li><strong>Assignees / Labels / Projects</strong>：负责人、分类标签、关联看板。</li>
+</ul>
+
+<pre><code>## 改动内容
+- 新增 about.html 页面
+- 导航栏增加"关于"入口
+
+## 为什么
+用户反馈找不到团队介绍。
+
+## 如何验证
+1. 打开首页，点击导航栏"关于"
+2. 确认页面正常显示、移动端布局正常
+
+Closes #12</code></pre>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>在描述里写 <code>Closes #12</code>（或 <code>Fixes #12</code>），PR 合并后对应的 Issue 会自动关闭，省去手动操作。</p>
+</div>
+
+<h2 id="draft">草稿 PR（Draft）</h2>
+<p>功能还没写完但想先让人看看思路，可以在创建时选择 <strong>Create draft pull request</strong>。草稿 PR 不能合并，适合早期征求意见；完成后点击 <strong>Ready for review</strong> 转为正式评审。</p>
+
+<h2 id="review">代码评审怎么进行</h2>
+<p>在 PR 的 <strong>Files changed</strong> 标签页，可以：</p>
+<ul>
+  <li>把鼠标移到某一行，点击 <strong>＋</strong> 写单行评论。</li>
+  <li>拖动选择多行，对一段代码评论。</li>
+  <li>点击 <strong>Start a review</strong> 把多条评论攒在一起提交，避免反复打扰对方。</li>
+  <li>用 <strong>Suggest changes</strong> 直接给出可一键采纳的修改建议。</li>
+</ul>
+<p>评审结束时，GitHub 提供三种结论：</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>结论</th><th>含义</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Comment</strong></td><td>只留意见，不阻塞合并。</td></tr>
+    <tr><td><strong>Approve</strong></td><td>同意合并。分支保护规则可要求"至少 N 个批准"。</td></tr>
+    <tr><td><strong>Request changes</strong></td><td>必须先修改并重新评审才能合并。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="respond">收到修改意见后</h3>
+<pre><code># 还在同一个分支上继续改
+git add .
+git commit -m "review: 按评审意见调整按钮间距"
+git push</code></pre>
+<p>不需要新建 PR，也不需要关闭旧的。推送后 PR 会自动更新，评审人可以只查看新增的改动。对每条评论点击 <strong>Resolve conversation</strong> 表示已处理。</p>
+
+<h2 id="checks">自动检查（Checks）</h2>
+<p>如果仓库配置了 GitHub Actions，PR 页面底部会显示检查结果。常见状态：</p>
+<ul>
+  <li><span class="badge">✓ 全部通过</span> 可以合并。</li>
+  <li><span class="badge">✗ 失败</span> 点 <strong>Details</strong> 查看日志，修复后重新推送。</li>
+  <li><span class="badge">● 进行中</span> 等待完成。</li>
+</ul>
+<p>分支保护规则可以设置"检查未通过禁止合并"，这是保证 main 始终可用的关键手段。</p>
+
+<h2 id="merge">三种合并方式</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>方式</th><th>效果</th><th>适合</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Create a merge commit</strong></td><td>保留分支上的每一次提交，并额外生成一个合并提交。</td><td>希望完整保留开发过程</td></tr>
+    <tr><td><strong>Squash and merge</strong></td><td>把分支上的所有提交压缩成一次提交，历史干净。</td><td>分支里有很多"改错字"式的小提交</td></tr>
+    <tr><td><strong>Rebase and merge</strong></td><td>把分支提交逐个接到 main 之后，不产生合并提交。</td><td>追求线性历史</td></tr>
+  </tbody>
+</table>
+</div>
+<p>仓库管理员可以在 <strong>Settings</strong> → <strong>General</strong> 中只启用其中一种，避免团队风格混乱。</p>
+
+<h2 id="after">合并之后</h2>
+<pre><code>git switch main
+git pull                 # 把合并结果同步到本地
+git branch -d feature/add-about   # 删除本地分支
+git push origin --delete feature/add-about  # 如果网页上没删远程分支</code></pre>
+<p>GitHub 合并成功后通常会显示 <strong>Delete branch</strong> 按钮，直接点它即可清理远程分支。</p>
+
+<h2 id="conflict-pr">PR 显示有冲突怎么办</h2>
+<p>说明目标分支在你创建 PR 之后又有了新提交，且改到了同一片区域。两种处理方式：</p>
+<pre><code># 方式一：把 main 的最新改动合进你的分支
+git switch feature/add-about
+git fetch origin
+git merge origin/main
+# 解决冲突 → git add → git commit → git push
+
+# 方式二：把自己的提交接到最新 main 之后（仅限个人分支）
+git rebase origin/main
+git push --force-with-lease</code></pre>
+<p>解决后 PR 页面会自动刷新为可合并状态。</p>
+
+<h2 id="etiquette">协作礼仪</h2>
+<ul>
+  <li><strong>PR 要小</strong>：改动控制在几百行以内，评审质量会明显提高。</li>
+  <li><strong>描述要能自解释</strong>：不要让评审人靠猜你的意图。</li>
+  <li><strong>及时响应</strong>：收到意见后尽快回复，哪怕只是"今天会改"。</li>
+  <li><strong>对事不对人</strong>：评论针对代码，不针对作者。</li>
+  <li><strong>不要自己批准自己的 PR</strong>：个人项目也建议走一遍流程，养成习惯。</li>
+</ul>
+
+<div class="tip">
+  <span class="adm-title">提示</span>
+  <p>安装了 GitHub CLI 后，可以在终端里直接创建 PR：<code>gh pr create --fill</code>，用提交信息自动填充标题和描述。</p>
+</div>
+
+    </article>
+    <nav class="pager" aria-label="翻页">
+<a class="pager-item prev" href="branch.html"><span class="pager-dir">← 上一页</span><span class="pager-title">分支与合并</span></a>
+<a class="pager-item next" href="issues.html"><span class="pager-dir">下一页 →</span><span class="pager-title">Issue 与 Discussions</span></a>
+</nav>
+    <footer class="site-foot">
+      <p>GitHub 中文入门指南 · 使用 <a href="pages.html">GitHub Pages</a> 托管 · 内容以官方文档为准</p>
+      <p class="muted">Git 与 GitHub 是各自所有者的商标。本指南为学习用途的中文整理。</p>
+    </footer>
+  </main>
+
+  <nav class="toc" aria-label="本页目录">
+<div class="toc-title">本页目录</div>
+<ul>
+<li><a href="#what">Pull Request 是什么</a></li>
+<li><a href="#workflow">完整流程一览</a></li>
+<li><a href="#create">动手发起一个 PR</a></li>
+<ul class="toc-sub">
+<li><a href="#create-cli">用命令行推送</a></li>
+<li><a href="#create-web">填写 PR 信息</a></li>
+</ul>
+<li><a href="#draft">草稿 PR（Draft）</a></li>
+<li><a href="#review">代码评审怎么进行</a></li>
+<ul class="toc-sub">
+<li><a href="#respond">收到修改意见后</a></li>
+</ul>
+<li><a href="#checks">自动检查（Checks）</a></li>
+<li><a href="#merge">三种合并方式</a></li>
+<li><a href="#after">合并之后</a></li>
+<li><a href="#conflict-pr">PR 显示有冲突怎么办</a></li>
+<li><a href="#etiquette">协作礼仪</a></li>
+</ul>
+</nav>
+</div>
+<script src="assets/main.js"></script>
+</body>
+</html>
